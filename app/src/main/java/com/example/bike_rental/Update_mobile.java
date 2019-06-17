@@ -1,6 +1,7 @@
 package com.example.bike_rental;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,7 @@ import org.json.JSONObject;
 
 public class Update_mobile extends AppCompatActivity {
 
-    String url="";
+    String url="https://gogoogol.in/android/load_mob.php";
     ImageButton button;
     EditText mobile;
     @Override
@@ -22,7 +23,7 @@ public class Update_mobile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.update_mobile);
         Intent intent=getIntent();
-        String id=intent.getStringExtra("id");
+        final String id=intent.getStringExtra("id");
         mobile=findViewById(R.id.mobile_number);
         button=findViewById(R.id.send_mobile);
 
@@ -33,6 +34,7 @@ public class Update_mobile extends AppCompatActivity {
                     JSONObject object=new JSONObject();
                     try {
                         object.put("mobile",mobile.getText().toString().trim());
+                        object.put("id",id);
                         Send_data send_data=new Send_data();
                         send_data.execute(object.toString());
                     } catch (JSONException e) {
@@ -45,9 +47,13 @@ public class Update_mobile extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     private class Send_data extends AsyncTask<String,String,String> {
+        ProgressDialog dialog=new ProgressDialog(Update_mobile.this);
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            dialog.setMessage("Loading");
+            dialog.setCancelable(false);
+            dialog.show();
         }
 
         @Override
@@ -62,6 +68,7 @@ public class Update_mobile extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            dialog.dismiss();
         }
     }
 }
