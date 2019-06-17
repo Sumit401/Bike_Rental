@@ -517,7 +517,7 @@ public class MainActivity3 extends AppCompatActivity {
                         s2=object.getString("id");
 
 
-                        Intent intent1=new Intent(MainActivity3.this,Payment.class);
+                        Intent intent1=new Intent(MainActivity3.this,Booked_Vehicle.class);
                         intent1.putExtra("book_id",""+s2);
                         intent1.putExtra("price",""+pricing);
                         intent1.putExtra("days",""+dayCount);

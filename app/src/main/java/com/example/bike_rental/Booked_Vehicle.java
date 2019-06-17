@@ -19,7 +19,7 @@ import org.json.JSONObject;
 public class Booked_Vehicle extends AppCompatActivity {
 
     String url="https://gogoogol.in/android/booking_vehicle.php";
-    TextView vehicle_name,book_from,bookto,booking_date;
+    TextView vehicle_name,book_from,bookto,booking_date,totalprice;
     ImageView vehicleicon,qrcode;
     String VehiclesTitle,BrandName,FromDate,ToDate,veh_image,userEmail,license_num,PostingDate,aadhaar_num,message;
     @Override
@@ -29,12 +29,16 @@ public class Booked_Vehicle extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent=getIntent();
         String id2=intent.getStringExtra("id");
+        float price = Float.parseFloat(intent.getStringExtra("price"));
+        float days = Float.parseFloat(intent.getStringExtra("days"));
         vehicle_name = findViewById(R.id.vehiclesname1);
         book_from = findViewById(R.id.bookingfrom1);
         bookto = findViewById(R.id.Bookingto);
         booking_date = findViewById(R.id.bookingdate);
         vehicleicon = findViewById(R.id.vehicleicon);
         qrcode = findViewById(R.id.qrcode);
+        totalprice = findViewById(R.id.total_price);
+
 
         JSONObject jsonObject=new JSONObject();
         try {
@@ -44,6 +48,7 @@ public class Booked_Vehicle extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        totalprice.setText(""+price*days);
     }
 
     @Override

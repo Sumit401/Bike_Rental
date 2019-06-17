@@ -5,11 +5,13 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.ChecksumException;
 import com.paytm.pgsdk.PaytmClientCertificate;
 import com.paytm.pgsdk.PaytmMerchant;
 import com.paytm.pgsdk.PaytmOrder;
@@ -19,11 +21,20 @@ import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
+import java.util.zip.Checksum;
 
+import static com.paytm.pgsdk.PaytmConstants.CHECKSUM;
 import static com.paytm.pgsdk.PaytmConstants.ORDER_ID;
 
 public class Payment extends AppCompatActivity {
@@ -36,9 +47,11 @@ public class Payment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Intent intent=getIntent();
-        final PaytmPGService Service = PaytmPGService.getStagingService();
+        final PaytmPGService Service = PaytmPGService.getProductionService();
+
         bookid=intent.getStringExtra("book_id");
         price= Float.parseFloat(intent.getStringExtra("price"));
         days= Float.parseFloat(intent.getStringExtra("days"));
@@ -60,87 +73,11 @@ public class Payment extends AppCompatActivity {
         name.setText(veh_name);
         pricing.setText(""+getPrice);
 
-
-        SharedPreferences preferences=getSharedPreferences("Login",MODE_PRIVATE);
-
-        Map<String, String> paramMap = new HashMap<String,String>();
-        paramMap.put( "MID" , "jbehFg51291260255104");
-// Key in your staging and production MID available in your dashboard
-        paramMap.put( "ORDER_ID" , bookid);
-        paramMap.put( "CUST_ID" , cust_id);
-        paramMap.put( "MOBILE_NO" , preferences.getString("Mobile",null));
-        paramMap.put( "EMAIL" , preferences.getString("Email",null));
-        paramMap.put( "CHANNEL_ID" , "WAP");
-        paramMap.put( "TXN_AMOUNT" , String.valueOf(getPrice));
-        paramMap.put( "WEBSITE" , "DEFAULT");
-// This is the staging value. Production value is available in your dashboard
-        paramMap.put( "INDUSTRY_TYPE_ID" , "Retail");
-// This is the staging value. Production value is available in your dashboard
-        paramMap.put( "CALLBACK_URL", "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=order1");
-        paramMap.put( "CHECKSUMHASH" , "w2QDRMgp1234567JEAPCIOmNgQvsi+BhpqijfM9KvFfRiPmGSt3Ddzw+oTaGCLneJwxFFq5mqTMwJXdQE2EzK4px2xruDqKZjHupz9yXev4=");
-
-        PaytmOrder Order = new PaytmOrder((HashMap<String, String>) paramMap);
-
-        PaytmMerchant Merchant = new PaytmMerchant(
-                "https://gogoogol.in/android/paytm/generateChecksum.php",
-                "https://gogoogol.in/android/paytm/verifyChecksum.php");
-
-
-        Service.initialize(Order,null);
-
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Service.startPaymentTransaction(Payment.this, true, true, new PaytmPaymentTransactionCallback() {
-
-                            @Override
-                            public void someUIErrorOccurred(String inErrorMessage) {
-                                Toast.makeText(getApplicationContext(),""+inErrorMessage,Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onTransactionResponse(Bundle inResponse) {
-                                Toast.makeText(getApplicationContext(),""+inResponse.toString(),Toast.LENGTH_LONG).show();
-                                try {
-                                    JSONObject object=new JSONObject(String.valueOf(inResponse));
-                                } catch (JSONException e) {
-                                    e.getStackTrace();
-                                }
-                            }
-
-                            @Override
-                            public void networkNotAvailable() {
-                                Toast.makeText(getApplicationContext(),"No network",Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-
-                            public void clientAuthenticationFailed(String inErrorMessage) {
-                                Toast.makeText(getApplicationContext(),""+inErrorMessage,Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onErrorLoadingWebPage(int iniErrorCode, String inErrorMessage, String inFailingUrl) {
-                                Toast.makeText(getApplicationContext(),""+inErrorMessage+""+inFailingUrl,Toast.LENGTH_SHORT).show();
-                            }
-
-
-                            @Override
-                            public void onBackPressedCancelTransaction() {
-                                Toast.makeText(getApplicationContext(),"back pressed",Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onTransactionCancel(String inErrorMessage, Bundle inResponse) {
-                                Toast.makeText(getApplicationContext(),""+inErrorMessage,Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-            }
-
-
-        });
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
 
