@@ -44,7 +44,7 @@ public class MainActivity3 extends AppCompatActivity {
     TextView name,price,seat,fuel,reg_year;
     String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     ImageView air_cond,antilockbr,powersteering,powerwindow,power_door_lock,centrallock,cdplayer,leatherseat,crashsensor,driverairbag,passairbag,break_assist;
-    String id,brand,overview,fuelType,pricing,ac,modelyr,title,seating,powerdoorlock,abs,breakass, PowerSteering,DriverAirbag,
+    String cust_id,brand,overview,fuelType,pricing,ac,modelyr,title,seating,powerdoorlock,abs,breakass, PowerSteering,DriverAirbag,
             PassengerAirbag,PowerWindows,CDPlayer,CrashSensor,CentralLocking,LeatherSeats;
     Button accessories,over_view;
     Button share,booknow;
@@ -54,6 +54,7 @@ public class MainActivity3 extends AppCompatActivity {
     Dialog dialog;
     String s2=null;
     int k=0;
+    float dayCount;
     int from_date_dd,from_date_mm,from_date_yy,to_date_dd,to_date_mm,to_date_yy,from_time_hh,from_time_mm,to_time_mm,to_time_hh;
     Calendar to_date_time,from_date_time;
 
@@ -305,7 +306,7 @@ public class MainActivity3 extends AppCompatActivity {
 
                             long diff = -from_date_time.getTimeInMillis() + to_date_time.getTimeInMillis();
 
-                            float dayCount = (float) diff / (24 * 60 * 60 * 1000);
+                            dayCount = (float) diff / (24 * 60 * 60 * 1000);
 
                             if (dayCount > 0) {
                                 SharedPreferences preferences = getSharedPreferences("Login", MODE_PRIVATE);
@@ -370,7 +371,7 @@ public class MainActivity3 extends AppCompatActivity {
                         JSONArray jsonArray = j1.getJSONArray("vehicleinfo");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject j2 = jsonArray.getJSONObject(i);
-                            id = j2.getString("id");
+                            cust_id = j2.getString("id");
                             title = j2.getString("VehiclesTitle");
                             brand = j2.getString("BrandName");
                             overview = j2.getString("VehiclesOverview");
@@ -516,8 +517,12 @@ public class MainActivity3 extends AppCompatActivity {
                         s2=object.getString("id");
 
 
-                        Intent intent1=new Intent(MainActivity3.this,Booked_Vehicle.class);
-                        intent1.putExtra("id",""+s2);
+                        Intent intent1=new Intent(MainActivity3.this,Payment.class);
+                        intent1.putExtra("book_id",""+s2);
+                        intent1.putExtra("price",""+pricing);
+                        intent1.putExtra("days",""+dayCount);
+                        intent1.putExtra("cust_id",""+cust_id);
+                        intent1.putExtra("veh_name",""+title+","+brand);
                         startActivity(intent1);
                         finish();
 

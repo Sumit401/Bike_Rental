@@ -7,9 +7,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
         android:allowBackup="true"
@@ -20,9 +20,14 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".Payment"
+            android:parentActivityName=".MainActivity3" />
+        <activity
             android:name=".Update_mobile"
             android:parentActivityName=".MainActivity2" />
-        <activity android:name=".Profile_verific" android:parentActivityName=".MainActivity1"/>
+        <activity
+            android:name=".Profile_verific"
+            android:parentActivityName=".MainActivity1" />
         <activity
             android:name=".Login"
             android:label="Login"
