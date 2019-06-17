@@ -16,9 +16,9 @@
         android:layout_height="wrap_content">
         <ImageView
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/ic_launcher_round"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:src="@drawable/com_facebook_profile_picture_blank_portrait"
+            android:layout_width="100sp"
+            android:layout_height="100sp" />
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -92,6 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
+                android:id="@+id/profile_verific"
                 android:background="@null"
                 android:drawableEnd="@drawable/ic_chevron_right_black_24dp"
                 android:text="Profile Verification"

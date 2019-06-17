@@ -98,6 +98,7 @@ public class Login extends AppCompatActivity {
                     editor.apply();
                     Intent intent=new Intent(Login.this,MainActivity2.class);
                     startActivity(intent);
+                    finish();
                 }else {
                     Toast.makeText(Login.this,"Failed",Toast.LENGTH_SHORT).show();
                 }

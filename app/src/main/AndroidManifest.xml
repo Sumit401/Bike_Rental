@@ -16,8 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Update_mobile"></activity>
-        <activity android:name=".Profile_verific" />
+        <activity
+            android:name=".Update_mobile"
+            android:parentActivityName=".MainActivity2" />
+        <activity android:name=".Profile_verific" android:parentActivityName=".MainActivity1"/>
         <activity
             android:name=".Login"
             android:label="Login"

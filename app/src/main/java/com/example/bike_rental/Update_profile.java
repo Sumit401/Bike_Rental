@@ -8,12 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.Objects;
 
 public class Update_profile extends AppCompatActivity {
 
+    Button profile_verif;
     EditText name,email,mobile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +26,20 @@ public class Update_profile extends AppCompatActivity {
         name=findViewById(R.id.upd_name);
         email=findViewById(R.id.upd_email);
         mobile=findViewById(R.id.upd_mobile);
+        profile_verif=findViewById(R.id.profile_verific);
         SharedPreferences preferences=getSharedPreferences("Login",MODE_PRIVATE);
         email.setText(preferences.getString("Email",null));
         name.setText(preferences.getString("Name",null));
         mobile.setText(preferences.getString("Mobile", null));
+
+        profile_verif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Update_profile.this,Profile_verific.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

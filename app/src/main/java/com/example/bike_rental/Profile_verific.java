@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Objects;
 
 public class Profile_verific extends AppCompatActivity {
 
@@ -39,6 +40,7 @@ public class Profile_verific extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_verific);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         uploadaadhaar=findViewById(R.id.addressproof);
         uploaddl=findViewById(R.id.dlupload);
         preferences=getSharedPreferences("Login",MODE_PRIVATE);
@@ -378,11 +380,12 @@ public class Profile_verific extends AppCompatActivity {
                 String s1=object.getString("response");
                 if (s1.equalsIgnoreCase("success"))
                 {
-                    String dl="https://gogoogol.in/android/pics"+object.getString("dl_image");
-                    String id_img = "https://gogoogol.in/android/pics"+object.getString("id_image");
-                    Picasso.get().load(dl).into(driving);
-                    Picasso.get().load(id_img).into(aadhaar);
-
+                    if (object.getString("dl_image") !=null && object.getString("id_image") != null) {
+                        String dl = "https://gogoogol.in/android/pics" + object.getString("dl_image");
+                        String id_img = "https://gogoogol.in/android/pics" + object.getString("id_image");
+                        Picasso.get().load(dl).into(driving);
+                        Picasso.get().load(id_img).into(aadhaar);
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
