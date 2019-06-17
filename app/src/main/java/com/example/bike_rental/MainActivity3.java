@@ -523,6 +523,8 @@ public class MainActivity3 extends AppCompatActivity {
                         intent1.putExtra("days",""+dayCount);
                         intent1.putExtra("cust_id",""+cust_id);
                         intent1.putExtra("veh_name",""+title+","+brand);
+                        intent1.putExtra("from",from_date_dd+"-"+from_date_mm+"-"+from_date_yy);
+                        intent1.putExtra("to",to_date_dd+"-"+to_date_mm+"-"+to_date_yy);
                         startActivity(intent1);
                         finish();
 
