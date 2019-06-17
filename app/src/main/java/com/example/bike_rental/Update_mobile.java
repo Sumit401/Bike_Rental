@@ -1,5 +1,6 @@
 package com.example.bike_rental;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import org.json.JSONObject;
 
 public class Update_mobile extends AppCompatActivity {
 
+    String url="";
     ImageButton button;
     EditText mobile;
     @Override
@@ -41,6 +43,7 @@ public class Update_mobile extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class Send_data extends AsyncTask<String,String,String> {
         @Override
         protected void onPreExecute() {
@@ -49,7 +52,11 @@ public class Update_mobile extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            return null;
+            JSONObject object=JsonFunction.GettingData(url,params[0]);
+            if (object== null)
+                return "Null";
+            else
+                return object.toString();
         }
 
         @Override
