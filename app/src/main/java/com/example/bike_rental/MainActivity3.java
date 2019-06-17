@@ -167,9 +167,9 @@ public class MainActivity3 extends AppCompatActivity {
                 fromtime.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
+                        fromtime.setHint("hh:mm am/pm");
                         todate.setHint("");
                         totime.setHint("");
-                        fromtime.setHint("hh:mm am/pm");
                         fromdate.setHint("");
                         return false;
                     }
@@ -198,7 +198,6 @@ public class MainActivity3 extends AppCompatActivity {
                 fromtime.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        todate.setHint("dd-mm-yyyy");
                         Calendar calendar = Calendar.getInstance();
                         int mhour = calendar.get(Calendar.HOUR);
                         int mmin = calendar.get(Calendar.MINUTE);
@@ -210,9 +209,15 @@ public class MainActivity3 extends AppCompatActivity {
                                         String AM_PM ;
                                         if(hourOfDay < 12) {
                                             AM_PM = "AM";
+                                            if (hourOfDay==00){
+                                                hourOfDay=12;
+                                            }
                                         } else {
                                             AM_PM = "PM";
                                             hourOfDay=hourOfDay-12;
+                                            if (hourOfDay==00){
+                                                hourOfDay=12;
+                                            }
                                         }
                                         fromtime.setText(String.format("%02d:%02d %s", hourOfDay, minute,AM_PM));
                                     }

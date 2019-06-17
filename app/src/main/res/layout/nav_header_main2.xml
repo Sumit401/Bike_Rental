@@ -25,9 +25,8 @@
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/accountimage"
-            android:tint="@color/white"
             android:layout_gravity="bottom"
-            android:src="@drawable/ic_person_black_24dp"
+            android:src="@drawable/com_facebook_profile_picture_blank_portrait"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:ignore="ContentDescription" />

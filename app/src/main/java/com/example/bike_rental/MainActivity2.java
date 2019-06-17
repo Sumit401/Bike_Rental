@@ -176,7 +176,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
         profile_email.setText(preferences.getString("Email",null));
         profile_name.setText(preferences.getString("Name",null));
         profile_contact.setText(preferences.getString("Mobile", null));
-
+        Picasso.get().load(preferences.getString("pic",null)).into(acct_img);
     }
 
     @Override

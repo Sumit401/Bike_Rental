@@ -11,6 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -18,6 +21,7 @@ public class Update_profile extends AppCompatActivity {
 
     Button profile_verif;
     EditText name,email,mobile;
+    ImageView profileimg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +31,12 @@ public class Update_profile extends AppCompatActivity {
         email=findViewById(R.id.upd_email);
         mobile=findViewById(R.id.upd_mobile);
         profile_verif=findViewById(R.id.profile_verific);
+        profileimg=findViewById(R.id.profileimage);
         SharedPreferences preferences=getSharedPreferences("Login",MODE_PRIVATE);
         email.setText(preferences.getString("Email",null));
         name.setText(preferences.getString("Name",null));
         mobile.setText(preferences.getString("Mobile", null));
-
+        Picasso.get().load(preferences.getString("pic",null)).into(profileimg);
         profile_verif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

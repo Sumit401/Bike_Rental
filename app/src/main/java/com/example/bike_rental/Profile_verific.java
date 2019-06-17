@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -12,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -29,13 +32,13 @@ import java.util.Objects;
 
 public class Profile_verific extends AppCompatActivity {
 
-    LinearLayout uploaddl,uploadaadhaar;
+    Button uploaddl,uploadaadhaar;
     String picturePath,picturePath2;
     int serverResponseCode;
     SharedPreferences preferences;
     ImageView driving,aadhaar;
     String url="https://gogoogol.in/android/image_url.php";
-    String url1="";
+    String url1="https://gogoogol.in/android/get_image.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +55,7 @@ public class Profile_verific extends AppCompatActivity {
         try {
             object.put("id",preferences.getString("id",null));
             Get_image get_image=new Get_image();
-            get_image.execute();
+            get_image.execute(object.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -87,6 +90,11 @@ public class Profile_verific extends AppCompatActivity {
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             picturePath=cursor.getString(columnIndex);
+
+            File imgFile = new  File(picturePath);
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            driving.setImageBitmap(myBitmap);
+
             cursor.close();
 
             JSONObject object=new JSONObject();
@@ -109,6 +117,11 @@ public class Profile_verific extends AppCompatActivity {
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             picturePath2=cursor.getString(columnIndex);
+
+            File imgFile = new  File(picturePath2);
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            aadhaar.setImageBitmap(myBitmap);
+
             cursor.close();
             JSONObject object=new JSONObject();
             try {
@@ -381,8 +394,8 @@ public class Profile_verific extends AppCompatActivity {
                 if (s1.equalsIgnoreCase("success"))
                 {
                     if (object.getString("dl_image") !=null && object.getString("id_image") != null) {
-                        String dl = "https://gogoogol.in/android/pics" + object.getString("dl_image");
-                        String id_img = "https://gogoogol.in/android/pics" + object.getString("id_image");
+                        String dl = "https://gogoogol.in/android/pics/" + object.getString("dl_image");
+                        String id_img = "https://gogoogol.in/android/pics/" + object.getString("id_image");
                         Picasso.get().load(dl).into(driving);
                         Picasso.get().load(id_img).into(aadhaar);
                     }

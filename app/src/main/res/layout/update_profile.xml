@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
+            android:id="@+id/profileimage"
             android:layout_gravity="center_vertical"
             android:src="@drawable/com_facebook_profile_picture_blank_portrait"
             android:layout_width="100sp"

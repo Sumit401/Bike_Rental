@@ -112,6 +112,10 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
 
             GoogleSignInAccount acct = result.getSignInAccount();
 
+            SharedPreferences preferences=getSharedPreferences("Login",MODE_PRIVATE);
+            SharedPreferences.Editor editor=preferences.edit();
+            editor.putString("pic",acct.getPhotoUrl().toString());
+            editor.apply();
             try {
                 JSONObject object=new JSONObject();
                 object.put("action","register_user");
