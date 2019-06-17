@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="380sp"
+    android:layout_height="match_parent"
+    android:padding="20sp">
+    <TextView
+        android:layout_marginStart="20sp"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:text="Book From"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_marginTop="10sp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false">
+    <android.support.design.widget.TextInputLayout
+        android:layout_weight="1"
+        android:hint="Date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:cursorVisible="false"
+            android:id="@+id/fromdate"
+            android:inputType="date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:hint="Time"
+            android:id="@+id/fromtime"
+            android:inputType="time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="10sp"
+        android:layout_marginStart="20sp"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:text="Book To"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_marginTop="10sp"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/todate"
+                android:hint="Date"
+                android:inputType="date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:hint="Time"
+                android:id="@+id/totime"
+                android:inputType="time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp">
+        <EditText
+            android:id="@+id/messagedata"
+            android:hint="Message"
+            android:inputType="textMultiLine"
+            android:layout_width="match_parent"
+            android:maxLines="3"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/submit_form"
+        android:layout_marginTop="20sp"
+        android:textStyle="bold"
+        android:layout_marginEnd="30sp"
+        android:layout_marginStart="30sp"
+        android:textAllCaps="false"
+        android:text="Submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

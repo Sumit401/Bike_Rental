@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="30sp">
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:padding="20sp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginBottom="10sp"
+            android:textSize="13sp"
+            android:gravity="center_horizontal"
+            android:text="Continue with"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:padding="10sp"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputLayout
+            app:boxStrokeColor="#a6cc90"
+            android:textColorHint="#a6cc90"
+            app:hintAnimationEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/login_mobile"
+                android:hint="Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                tools:ignore="Autofill" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            app:passwordToggleEnabled="true"
+            app:boxStrokeColor="#a6cc90"
+            android:textColorHint="#a6cc90"
+            app:hintAnimationEnabled="true"
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:id="@+id/pass"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/login_password"
+                android:hint="Password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                tools:ignore="Autofill" />
+        </android.support.design.widget.TextInputLayout>
+        <ImageButton
+            android:id="@+id/loginbtn"
+            android:padding="15sp"
+            android:layout_marginTop="10sp"
+            android:background="@drawable/login_send_background"
+            android:src="@drawable/ic_menu_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/loginbtn2"
+            android:padding="15sp"
+            android:layout_marginTop="10sp"
+            android:background="@drawable/login_send_background"
+            android:src="@drawable/ic_menu_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+</LinearLayout>

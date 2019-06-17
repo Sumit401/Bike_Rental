@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="350dp"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:layout_height="match_parent"
+    android:paddingLeft="50sp"
+    android:paddingRight="50sp"
+    android:paddingTop="30sp"
+    android:paddingBottom="30sp">
+    <TextView
+        android:textStyle="bold"
+        android:layout_marginStart="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5sp"
+        android:text="Forget Password"
+        android:textColor="@color/black"
+        android:textSize="20sp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2sp"
+        android:background="@color/black"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30sp">
+        <EditText
+            android:id="@+id/forgetemail"
+            android:inputType="textEmailAddress"
+            android:hint="Your Email Address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp">
+        <EditText
+            android:id="@+id/forgetmobile"
+            android:inputType="phone"
+            android:hint="Your Reg. Mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        app:passwordToggleEnabled="true">
+        <EditText
+            android:id="@+id/forgetnewpass"
+            android:inputType="textPassword"
+            android:hint="New Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="Autofill" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        app:passwordToggleEnabled="true">
+        <EditText
+
+            android:id="@+id/forgetcnfpass"
+            android:inputType="textPassword"
+            android:hint="Confirm Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="Autofill" />
+    </android.support.design.widget.TextInputLayout>
+    <Button
+        android:id="@+id/forgetpassbtn"
+        android:textAllCaps="false"
+        android:background="@color/red"
+        android:textColor="@color/white"
+        android:layout_marginTop="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reset My Password"/>
+
+    <Button
+        android:id="@+id/forgetbacklogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:background="@null"
+        android:text="Back to Login"
+        android:textAllCaps="false" />
+</LinearLayout>

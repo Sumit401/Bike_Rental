@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/aboutus"
+            android:icon="@drawable/ic_info_outline_black_24dp"
+            android:title="About Us" />
+        <item
+            android:id="@+id/my_booking"
+            android:icon="@drawable/ic_directions_car_black_24dp"
+            android:title="My Trips" />
+        <item
+            android:id="@+id/profile_verif"
+            android:icon="@drawable/ic_verified_user_black_24dp"
+            android:title="Profile Verification" />
+        <item
+            android:id="@+id/shareloc"
+            android:icon="@drawable/ic_location_on_black_24dp"
+            android:title="Share your Location" />
+        <item
+            android:id="@+id/faq"
+            android:icon="@drawable/ic_question_answer_black_24dp"
+            android:title="FAQs" />
+        <item
+            android:id="@+id/contactus"
+            android:icon="@drawable/ic_contact_mail_black_24dp"
+            android:title="Contact Us" />
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/menu_share" />
+            <item
+                android:id="@+id/feedback"
+                android:icon="@drawable/ic_feedback_black_24dp"
+                android:title="Feedback" />
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Update_mobile"
+    android:orientation="vertical"
+    android:padding="20sp"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:textColor="@color/black"
+        android:layout_marginBottom="20sp"
+        android:textSize="20sp"
+        android:text="Please Update your Mobile Number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.design.widget.TextInputLayout
+        app:boxStrokeColor="#a6cc90"
+        android:textColorHint="#a6cc90"
+        app:hintAnimationEnabled="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical">
+        <EditText
+            android:id="@+id/mobile_number"
+            android:hint="Mobile Number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            tools:ignore="Autofill" />
+    </android.support.design.widget.TextInputLayout>
+    <ImageButton
+        android:id="@+id/send_mobile"
+        android:layout_marginTop="20sp"
+        android:padding="20sp"
+        android:background="@drawable/login_send_background"
+        android:src="@drawable/ic_menu_send"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
