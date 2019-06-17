@@ -301,8 +301,8 @@ public class MainActivity3 extends AppCompatActivity {
                             Toast.makeText(MainActivity3.this, "Fields Can't be Empty", Toast.LENGTH_SHORT).show();
                         } else {
 
-                            from_date_time.set(from_date_yy, from_date_mm, from_date_dd, from_time_hh, from_time_mm);
-                            to_date_time.set(to_date_yy, to_date_mm, to_date_dd, to_time_hh, to_time_mm);
+                            from_date_time.set(from_date_yy, from_date_mm, from_date_dd);
+                            to_date_time.set(to_date_yy, to_date_mm, to_date_dd);
 
                             long diff = -from_date_time.getTimeInMillis() + to_date_time.getTimeInMillis();
 

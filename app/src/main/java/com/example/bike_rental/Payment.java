@@ -16,6 +16,9 @@ import com.paytm.pgsdk.PaytmOrder;
 import com.paytm.pgsdk.PaytmPGService;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -79,8 +82,8 @@ public class Payment extends AppCompatActivity {
         PaytmOrder Order = new PaytmOrder((HashMap<String, String>) paramMap);
 
         PaytmMerchant Merchant = new PaytmMerchant(
-                "https://pguat.paytm.com/paytmchecksum/paytmCheckSumGenerator.jsp",
-                "https://pguat.paytm.com/paytmchecksum/paytmCheckSumVerify.jsp");
+                "https://gogoogol.in/android/paytm/generateChecksum.php",
+                "https://gogoogol.in/android/paytm/verifyChecksum.php");
 
 
         Service.initialize(Order,null);
@@ -98,7 +101,12 @@ public class Payment extends AppCompatActivity {
 
                             @Override
                             public void onTransactionResponse(Bundle inResponse) {
-                                Toast.makeText(getApplicationContext(),"Response",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),""+inResponse.toString(),Toast.LENGTH_LONG).show();
+                                try {
+                                    JSONObject object=new JSONObject(String.valueOf(inResponse));
+                                } catch (JSONException e) {
+                                    e.getStackTrace();
+                                }
                             }
 
                             @Override
