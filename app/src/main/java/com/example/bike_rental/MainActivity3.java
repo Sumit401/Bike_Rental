@@ -4,23 +4,18 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Handler;
-import android.provider.MediaStore;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -38,11 +33,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -64,6 +54,8 @@ public class MainActivity3 extends AppCompatActivity {
     Dialog dialog;
     String s2=null;
     int k=0;
+    int from_date_dd,from_date_mm,from_date_yy,to_date_dd,to_date_mm,to_date_yy,from_time_hh,from_time_mm,to_time_mm,to_time_hh;
+    Calendar to_date_time,from_date_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +63,10 @@ public class MainActivity3 extends AppCompatActivity {
         setContentView(R.layout.activity_main3);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS}, 1);
+        if (ContextCompat.checkSelfPermission(MainActivity3.this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity3.this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS}, 101);
+        }
         dialog = new Dialog(MainActivity3.this);
         layoutbooknow=findViewById(R.id.layoutbooknow);
         imageView1 = findViewById(R.id.img1);
@@ -104,9 +99,11 @@ public class MainActivity3 extends AppCompatActivity {
         bar = findViewById(R.id.progressbar);
         booknow = findViewById(R.id.bookvehicle);
         share = findViewById(R.id.sharevehicle);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         s1 = intent.getStringExtra("id");
 
+        from_date_time = Calendar.getInstance();
+        to_date_time =  Calendar.getInstance();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("id",""+s1);
@@ -186,10 +183,14 @@ public class MainActivity3 extends AppCompatActivity {
                             @SuppressLint("DefaultLocale")
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                                from_date_dd=dayOfMonth;
+                                from_date_mm=month;
+                                from_date_yy=year;
+
                                 fromdate.setText(String.format("%02d %s %d", dayOfMonth, MONTHS[month], year));
                             }
                         }, myear, mmonth, mday);
-
                         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                         datePickerDialog.show();
                     }
@@ -206,6 +207,10 @@ public class MainActivity3 extends AppCompatActivity {
                                 new TimePickerDialog.OnTimeSetListener() {
                                     @Override
                                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                                        from_time_hh=hourOfDay;
+                                        from_time_mm=minute;
+
                                         String AM_PM ;
                                         if(hourOfDay < 12) {
                                             AM_PM = "AM";
@@ -239,9 +244,15 @@ public class MainActivity3 extends AppCompatActivity {
                                 new DatePickerDialog.OnDateSetListener() {
                                     @Override
                                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                                        to_date_dd=dayOfMonth;
+                                        to_date_mm=month;
+                                        to_date_yy=year;
+
                                         todate.setText(String.format("%02d %s %d", dayOfMonth, MONTHS[month], year));
                                     }
                                 }, myear, mmonth, mday);
+
 
                         datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis() - 1000);
                         datePickerDialog.show();
@@ -259,6 +270,10 @@ public class MainActivity3 extends AppCompatActivity {
                                 new TimePickerDialog.OnTimeSetListener() {
                                     @Override
                                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                                        to_time_hh=hourOfDay;
+                                        to_time_mm=minute;
+
                                         String AM_PM ;
                                         if(hourOfDay < 12) {
                                             AM_PM = "AM";
@@ -285,9 +300,15 @@ public class MainActivity3 extends AppCompatActivity {
                             Toast.makeText(MainActivity3.this, "Fields Can't be Empty", Toast.LENGTH_SHORT).show();
                         } else {
 
+                            from_date_time.set(from_date_yy, from_date_mm, from_date_dd, from_time_hh, from_time_mm);
+                            to_date_time.set(to_date_yy, to_date_mm, to_date_dd, to_time_hh, to_time_mm);
+
+                            long diff = -from_date_time.getTimeInMillis() + to_date_time.getTimeInMillis();
+
+                            float dayCount = (float) diff / (24 * 60 * 60 * 1000);
+
+                            if (dayCount > 0) {
                                 SharedPreferences preferences = getSharedPreferences("Login", MODE_PRIVATE);
-
-
                                 JSONObject obj1 = new JSONObject();
                                 try {
                                     obj1.put("email", preferences.getString("Email", null));
@@ -297,8 +318,12 @@ public class MainActivity3 extends AppCompatActivity {
                                     obj1.put("message", message.getText().toString().trim());
                                     SubmitData submitData = new SubmitData();
                                     submitData.execute(obj1.toString());
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
+                                }
+                            }else {
+                                Toast.makeText(getApplicationContext(),"Invalid date",Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -489,6 +514,13 @@ public class MainActivity3 extends AppCompatActivity {
                     if (s1.equalsIgnoreCase("Success")) {
                         Toast.makeText(MainActivity3.this,"Successfully Done",Toast.LENGTH_SHORT).show();
                         s2=object.getString("id");
+
+
+                        Intent intent1=new Intent(MainActivity3.this,Booked_Vehicle.class);
+                        intent1.putExtra("id",""+s2);
+                        startActivity(intent1);
+                        finish();
+
                     } else {
                         Toast.makeText(MainActivity3.this,"Failed",Toast.LENGTH_SHORT).show();
                     }
@@ -512,7 +544,7 @@ public class MainActivity3 extends AppCompatActivity {
                 } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
-                    Toast.makeText(this, "Permission denied to Access Location", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Permissions denied", Toast.LENGTH_SHORT).show();
                 }
                 return;
             }

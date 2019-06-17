@@ -90,8 +90,6 @@ public class Booked_Vehicle extends AppCompatActivity {
                             userEmail = j2.getString("userEmail");
                             FromDate = j2.getString("FromDate");
                             ToDate = j2.getString("ToDate");
-                            license_num = j2.getString("license_num");
-                            aadhaar_num=j2.getString("aadhaar_num");
                             message = j2.getString("message");
                             PostingDate=j2.getString("PostingDate");
                             VehiclesTitle=j2.getString("VehiclesTitle");

@@ -112,7 +112,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
             }
         });
 
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS}, 1);
 
         SharedPreferences preferences=getApplicationContext().getSharedPreferences("Login",MODE_PRIVATE);
         email=preferences.getString("Email",null);
