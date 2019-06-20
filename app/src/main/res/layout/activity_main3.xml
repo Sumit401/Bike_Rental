@@ -183,7 +183,7 @@
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:text="Hello World"
-                android:padding="10sp"
+                android:padding="20sp"
                 android:visibility="visible"
                 android:verticalScrollbarPosition="right"
                 android:scrollbarAlwaysDrawVerticalTrack="true"

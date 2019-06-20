@@ -1,4 +1,4 @@
-package com.example.bike_rental;
+package com.example.bike_rental_safety365;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -76,7 +76,7 @@ public class RecycleAdp_mybooking extends RecyclerView.Adapter<RecycleAdp_mybook
             @Override
             public void onClick(final View v) {
                 Intent intent = new Intent(context, Booked_Vehicle.class);
-                intent.putExtra("id",""+ book_id.get(i));
+                intent.putExtra("book_id",""+ book_id.get(i));
                 context.startActivity(intent);
             }
         });

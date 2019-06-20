@@ -1,4 +1,4 @@
-package com.example.bike_rental;
+package com.example.bike_rental_safety365;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

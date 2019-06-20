@@ -1,4 +1,4 @@
-package com.example.bike_rental;
+package com.example.bike_rental_safety365;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -28,8 +26,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -52,10 +48,6 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +60,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
     String url="https://gogoogol.in/android/get_status.php";
     String url2="https://gogoogol.in/android/sendloc.php";
     String email,id;
-    double lat,lng;
+    double lat=0,lng=0;
     int k=0;
     LatLng latLng;
     boolean doubleBackToExitPressedOnce = false;

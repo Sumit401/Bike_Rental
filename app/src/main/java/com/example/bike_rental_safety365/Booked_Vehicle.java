@@ -1,4 +1,4 @@
-package com.example.bike_rental;
+package com.example.bike_rental_safety365;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -28,18 +28,19 @@ public class Booked_Vehicle extends AppCompatActivity {
         setContentView(R.layout.booked__vehicle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent=getIntent();
-        String id2=intent.getStringExtra("id");
-        float price = Float.parseFloat(intent.getStringExtra("price"));
-        float days = Float.parseFloat(intent.getStringExtra("days"));
+        String id2=intent.getStringExtra("book_id");
+        /*float price = Float.parseFloat(intent.getStringExtra("price"));
+        float days = Float.parseFloat(intent.getStringExtra("days"));*/
         vehicle_name = findViewById(R.id.vehiclesname1);
         book_from = findViewById(R.id.bookingfrom1);
         bookto = findViewById(R.id.Bookingto);
         booking_date = findViewById(R.id.bookingdate);
         vehicleicon = findViewById(R.id.vehicleicon);
         qrcode = findViewById(R.id.qrcode);
-        totalprice = findViewById(R.id.total_price);
+        /*totalprice = findViewById(R.id.total_price);*/
 
-
+       /* totalprice.setText(""+price*days);
+*/
         JSONObject jsonObject=new JSONObject();
         try {
             jsonObject.put("id",id2);
@@ -48,7 +49,6 @@ public class Booked_Vehicle extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        totalprice.setText(""+price*days);
     }
 
     @Override

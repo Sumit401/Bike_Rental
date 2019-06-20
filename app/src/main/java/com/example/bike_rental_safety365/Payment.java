@@ -1,41 +1,15 @@
-package com.example.bike_rental;
+package com.example.bike_rental_safety365;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.zxing.ChecksumException;
-import com.paytm.pgsdk.PaytmClientCertificate;
-import com.paytm.pgsdk.PaytmMerchant;
-import com.paytm.pgsdk.PaytmOrder;
 import com.paytm.pgsdk.PaytmPGService;
-import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
-import java.util.TreeMap;
-import java.util.zip.Checksum;
-
-import static com.paytm.pgsdk.PaytmConstants.CHECKSUM;
-import static com.paytm.pgsdk.PaytmConstants.ORDER_ID;
 
 public class Payment extends AppCompatActivity {
 

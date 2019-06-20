@@ -1,4 +1,4 @@
-package com.example.bike_rental;
+package com.example.bike_rental_safety365;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -22,7 +22,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Car_listing extends Fragment {
+public class Bike_listing extends Fragment {
     String url="https://gogoogol.in/android/vehicle_listing.php";
     RecyclerView recyclerView;
     ArrayList<String> vehicleid=new ArrayList<>();
@@ -34,25 +34,23 @@ public class Car_listing extends Fragment {
     ArrayList<String> vehicleseating=new ArrayList<>();
     ArrayList<String> vehiclefuel=new ArrayList<>();
     ArrayList<String> vimage=new ArrayList<>();
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.vehicle_listing,container,false);
-
         recyclerView=view.findViewById(R.id.recycler);
         JSONObject jsonObject=new JSONObject();
         try {
-            jsonObject.put("type","car");
+            jsonObject.put("type","bike");
             jsonObject.put("action","get_all_links");
             LoadData loadData=new LoadData();
             loadData.execute(jsonObject.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         return view;
     }
-
     @SuppressLint("StaticFieldLeak")
     private class LoadData extends AsyncTask<String,String,String> {
         ProgressDialog progressDialog=new ProgressDialog(getContext());
