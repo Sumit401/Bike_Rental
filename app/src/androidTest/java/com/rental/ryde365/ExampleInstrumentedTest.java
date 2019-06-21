@@ -1,4 +1,4 @@
-package com.example.bike_rental_safety365;
+package com.rental.ryde365;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.bike_rental_safety365", appContext.getPackageName());
+        assertEquals("com.rental.ryde354", appContext.getPackageName());
     }
 }

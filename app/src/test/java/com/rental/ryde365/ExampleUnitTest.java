@@ -1,4 +1,4 @@
-package com.example.bike_rental_safety365;
+package com.rental.ryde365;
 
 import org.junit.Test;
 
