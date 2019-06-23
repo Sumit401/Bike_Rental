@@ -1,4 +1,4 @@
-package com.rental.ryde365;
+package com.rental.ryde354;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,6 +40,6 @@ public class Splash extends AppCompatActivity {
                 }
 
             }
-        },1500);
+        },200);
     }
 }

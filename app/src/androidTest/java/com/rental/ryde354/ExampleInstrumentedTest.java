@@ -1,4 +1,4 @@
-package com.rental.ryde365;
+package com.rental.ryde354;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

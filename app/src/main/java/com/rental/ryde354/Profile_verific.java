@@ -1,5 +1,6 @@
-package com.rental.ryde365;
+package com.rental.ryde354;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -60,6 +62,7 @@ public class Profile_verific extends AppCompatActivity {
         uploaddl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ActivityCompat.requestPermissions(Profile_verific.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, 1);
@@ -69,6 +72,7 @@ public class Profile_verific extends AppCompatActivity {
         uploadaadhaar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ActivityCompat.requestPermissions(Profile_verific.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, 2);
@@ -163,7 +167,7 @@ public class Profile_verific extends AppCompatActivity {
                     if (sourceFile.isFile()) {
 
                         try {
-                            String upLoadServerUri = "https://gogoogol.in/android/pic_upload.php";
+                            String upLoadServerUri = "https://gogoogol.in/android/pic_upload_dl.php";
 
                             // open a URL connection to the Servlet
                             FileInputStream fileInputStream = new FileInputStream(sourceFile);
@@ -269,12 +273,10 @@ public class Profile_verific extends AppCompatActivity {
                 if (sourceFile.isFile()) {
 
                     try {
-                        String upLoadServerUri = "https://gogoogol.in/android/pic_upload.php";
-
+                        String upLoadServerUri = "https://gogoogol.in/android/pic_upload_aadhaar.php";
                         // open a URL connection to the Servlet
                         FileInputStream fileInputStream = new FileInputStream(sourceFile);
                         URL url = new URL(upLoadServerUri);
-
                         // Open a HTTP connection to the URL
                         conn = (HttpURLConnection) url.openConnection();
                         conn.setDoInput(true); // Allow Inputs
@@ -391,10 +393,10 @@ public class Profile_verific extends AppCompatActivity {
                 if (s1.equalsIgnoreCase("success"))
                 {
                     if (object.getString("dl_image") !=null && object.getString("id_image") != null) {
-                        String dl = "https://gogoogol.in/android/pics/" + object.getString("dl_image");
-                        String id_img = "https://gogoogol.in/android/pics/" + object.getString("id_image");
-                        Picasso.get().load(dl).into(driving);
-                        Picasso.get().load(id_img).into(aadhaar);
+                        String dl = "https://gogoogol.in/admin/img/driving/" + object.getString("dl_image");
+                        String id_img = "https://gogoogol.in/admin/img/aadhar/" + object.getString("id_image");
+                        Picasso.get().load(dl).error(R.drawable.ic_image_black_24dp).into(driving);
+                        Picasso.get().load(id_img).error(R.drawable.ic_image_black_24dp).into(aadhaar);
                     }
                 }
             } catch (JSONException e) {

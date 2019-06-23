@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.rental.ryde365">
+    package="com.rental.ryde354">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,28 +11,28 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name="com.rental.ryde365.Payment"
-            android:parentActivityName="com.rental.ryde365.MainActivity3"
+            android:name="com.rental.ryde354.Payment"
+            android:parentActivityName="com.rental.ryde354.MainActivity3"
             android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name="com.rental.ryde365.Update_mobile"
-            android:parentActivityName="com.rental.ryde365.MainActivity2" />
+            android:name="com.rental.ryde354.Update_mobile"
+            android:parentActivityName="com.rental.ryde354.MainActivity2" />
         <activity
-            android:name="com.rental.ryde365.Profile_verific"
-            android:parentActivityName="com.rental.ryde365.MainActivity1" />
+            android:name="com.rental.ryde354.Profile_verific"
+            android:parentActivityName="com.rental.ryde354.MainActivity1" />
         <activity
-            android:name="com.rental.ryde365.Login"
+            android:name="com.rental.ryde354.Login"
             android:label="Login"
-            android:parentActivityName="com.rental.ryde365.MainActivity1" />
+            android:parentActivityName="com.rental.ryde354.MainActivity1" />
         <activity
-            android:name="com.rental.ryde365.Splash"
+            android:name="com.rental.ryde354.Splash"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,40 +41,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.rental.ryde365.MainActivity1"
+            android:name="com.rental.ryde354.MainActivity1"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.rental.ryde365.MainActivity2"
+            android:name="com.rental.ryde354.MainActivity2"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.rental.ryde365.MainActivity3"
+            android:name="com.rental.ryde354.MainActivity3"
             android:label="@string/app_name"
-            android:parentActivityName="com.rental.ryde365.MainActivity2"
+            android:parentActivityName="com.rental.ryde354.MainActivity2"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.rental.ryde365.Booked_Vehicle"
+            android:name="com.rental.ryde354.Booked_Vehicle"
             android:label="@string/app_name"
-            android:parentActivityName="com.rental.ryde365.MainActivity2"
+            android:parentActivityName="com.rental.ryde354.MainActivity2"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.rental.ryde365.Update_profile"
+            android:name="com.rental.ryde354.Update_profile"
             android:label="Update Profile"
-            android:parentActivityName="com.rental.ryde365.MainActivity2" />
+            android:parentActivityName="com.rental.ryde354.MainActivity2" />
         <activity
-            android:name="com.rental.ryde365.My_Bookings"
+            android:name="com.rental.ryde354.My_Bookings"
             android:label="My Trips"
-            android:parentActivityName="com.rental.ryde365.MainActivity2" />
+            android:parentActivityName="com.rental.ryde354.MainActivity2" />
         <activity
-            android:name="com.rental.ryde365.About_us"
+            android:name="com.rental.ryde354.About_us"
             android:label="About Us"
-            android:parentActivityName="com.rental.ryde365.MainActivity2" />
+            android:parentActivityName="com.rental.ryde354.MainActivity2" />
         <activity
-            android:name="com.rental.ryde365.Faqs"
+            android:name="com.rental.ryde354.Faqs"
             android:label="FAQs"
-            android:parentActivityName="com.rental.ryde365.MainActivity2" />
+            android:parentActivityName="com.rental.ryde354.MainActivity2" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

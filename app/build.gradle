@@ -4,20 +4,19 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.rental.ryde354"
-        minSdkVersion 19
+        minSdkVersion 23
         targetSdkVersion 28
-        versionCode 4
+        versionCode 6
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //noinspection GradleCompatible

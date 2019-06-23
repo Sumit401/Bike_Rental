@@ -1,4 +1,4 @@
-package com.rental.ryde365;
+package com.rental.ryde354;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -23,6 +23,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity1 extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
@@ -54,7 +57,7 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
         signInButton.setScopes(gso.getScopeArray());
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this , this )
+                .enableAutoManage(this,this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
@@ -63,7 +66,7 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (loginemail!=null){
+                if (isEmailValid(loginemail.getText().toString())){
                     JSONObject object=new JSONObject();
                     try {
                         object.put("email",loginemail.getText().toString().trim());
@@ -73,7 +76,7 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
                         e.printStackTrace();
                     }
                 }else {
-                    loginemail.setError("Required");
+                    loginemail.setError("Enter Valid Email");
                     loginemail.requestFocus();
                 }
             }
@@ -81,7 +84,12 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
 
     }
 
-
+    public static boolean isEmailValid(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
     //This function will option signing intent
     private void signIn() {
         //Creating an intent
@@ -106,12 +114,12 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
     private void handleSignInResult(GoogleSignInResult result) {
         //If the login succeed
         if (result.isSuccess()) {
-
             GoogleSignInAccount acct = result.getSignInAccount();
-
             SharedPreferences preferences=getSharedPreferences("Login",MODE_PRIVATE);
             SharedPreferences.Editor editor=preferences.edit();
-            editor.putString("pic",acct.getPhotoUrl().toString());
+            if (acct.getPhotoUrl() != null) {
+                editor.putString("pic",acct.getPhotoUrl().toString());
+            }
             editor.apply();
             try {
                 JSONObject object=new JSONObject();
@@ -126,7 +134,7 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
             }
         }
         else {
-            Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Login Failed"+result, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -191,6 +199,7 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
                     editor.putString("Email",object.getString("email"));
                     editor.putString("Mobile",object.getString("mobile"));
                     editor.apply();
+
                     Intent intent=new Intent(MainActivity1.this,MainActivity2.class);
                     startActivity(intent);
                     finish();

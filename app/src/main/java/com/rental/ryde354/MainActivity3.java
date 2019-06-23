@@ -1,4 +1,4 @@
-package com.rental.ryde365;
+package com.rental.ryde354;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -18,8 +18,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -63,9 +66,7 @@ public class MainActivity3 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         dialog = new Dialog(MainActivity3.this);
         layoutbooknow=findViewById(R.id.layoutbooknow);
         imageView1 = findViewById(R.id.img1);
@@ -118,58 +119,14 @@ public class MainActivity3 extends AppCompatActivity {
             public void onClick(View v) {
                 dialog.setContentView(R.layout.booknow);
                 dialog.show();
-                final TextView fromdate = dialog.findViewById(R.id.fromdate);
-                final TextView fromtime = dialog.findViewById(R.id.fromtime);
-                final TextView todate = dialog.findViewById(R.id.todate);
-                final TextView totime = dialog.findViewById(R.id.totime);
-                final TextView message = dialog.findViewById(R.id.messagedata);
+                Window window=dialog.getWindow();
+                window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                final EditText fromdate = dialog.findViewById(R.id.fromdate);
+                final EditText fromtime = dialog.findViewById(R.id.fromtime);
+                final EditText todate = dialog.findViewById(R.id.todate);
+                final EditText totime = dialog.findViewById(R.id.totime);
+                final EditText message = dialog.findViewById(R.id.messagedata);
                 Button submit_form = dialog.findViewById(R.id.submit_form);
-
-
-
-                fromdate.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        fromdate.setHint("dd-mm-yyyy");
-                        todate.setHint("");
-                        totime.setHint("");
-                        fromtime.setHint("");
-                        return false;
-                    }
-                });
-
-                todate.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        todate.setHint("dd-mm-yyyy");
-                        fromdate.setHint("");
-                        totime.setHint("");
-                        fromtime.setHint("");
-                        return false;
-                    }
-                });
-
-                totime.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        totime.setHint("hh:mm am/pm");
-                        fromtime.setHint("");
-                        fromdate.setHint("");
-                        todate.setHint("");
-                        return false;
-                    }
-                });
-
-                fromtime.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        fromtime.setHint("hh:mm am/pm");
-                        todate.setHint("");
-                        totime.setHint("");
-                        fromdate.setHint("");
-                        return false;
-                    }
-                });
 
                 fromdate.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -233,7 +190,6 @@ public class MainActivity3 extends AppCompatActivity {
                 todate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        todate.setHint("dd-mm-yyyy");
                         Calendar calendar = Calendar.getInstance();
                         int mday = calendar.get(Calendar.DATE);
                         int mmonth = calendar.get(Calendar.MONTH) + 1;
@@ -247,7 +203,6 @@ public class MainActivity3 extends AppCompatActivity {
                                         to_date_dd=dayOfMonth;
                                         to_date_mm=month;
                                         to_date_yy=year;
-
                                         todate.setText(String.format("%02d %s %d", dayOfMonth, MONTHS[month], year));
                                     }
                                 }, myear, mmonth, mday);
@@ -532,26 +487,6 @@ public class MainActivity3 extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 1: {
-
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    Toast.makeText(this, "Permissions denied", Toast.LENGTH_SHORT).show();
-                }
-                return;
             }
         }
     }

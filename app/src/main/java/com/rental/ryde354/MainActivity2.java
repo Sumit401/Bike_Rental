@@ -1,4 +1,4 @@
-package com.rental.ryde365;
+package com.rental.ryde354;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -168,7 +168,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
         profile_email.setText(preferences.getString("Email",null));
         profile_name.setText(preferences.getString("Name",null));
         profile_contact.setText(preferences.getString("Mobile", null));
-        Picasso.get().load(preferences.getString("pic",null)).into(acct_img);
+        Picasso.get().load(preferences.getString("pic",null)).placeholder(R.drawable.com_facebook_profile_picture_blank_square).error(R.drawable.com_facebook_profile_picture_blank_square).into(acct_img);
     }
 
     @Override
@@ -242,7 +242,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 String shareMessage= "RyDE 365\nLet me recommend you this application\n\n";
-                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id="  +"\n\n";
+                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id="+"com.rental.ryde354";
                 shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                 startActivity(Intent.createChooser(shareIntent, "Share via"));
             } catch(Exception e) {

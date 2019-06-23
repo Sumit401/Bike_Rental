@@ -1,4 +1,4 @@
-package com.rental.ryde365;
+package com.rental.ryde354;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
@@ -12,26 +12,30 @@ import org.json.JSONObject;
 
 import java.util.Objects;
 
-public class Faqs extends AppCompatActivity {
+public class About_us extends AppCompatActivity {
 
     String url="https://gogoogol.in/android/getpages.php";
-    TextView faq;
+    TextView aboutus;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.faqs);
+        setContentView(R.layout.about);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        faq=findViewById(R.id.faq);
+        aboutus=findViewById(R.id.aboutus1);
+
         JSONObject object=new JSONObject();
         try {
-            object.put("pages","FAQs");
+            object.put("pages","About Us");
             Get_data data=new Get_data();
             data.execute(object.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
+
     @SuppressLint("StaticFieldLeak")
     private class Get_data extends AsyncTask<String,String,String> {
         @Override
@@ -48,7 +52,7 @@ public class Faqs extends AppCompatActivity {
                 String s1=object.getString("response");
                 if(s1.equalsIgnoreCase("success")){
                     String detail=object.getString("detail");
-                    faq.setText(detail);
+                    aboutus.setText(detail);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

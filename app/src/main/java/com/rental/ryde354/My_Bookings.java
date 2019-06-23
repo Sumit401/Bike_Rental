@@ -1,4 +1,4 @@
-package com.rental.ryde365;
+package com.rental.ryde354;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -99,7 +99,7 @@ public class My_Bookings extends AppCompatActivity {
                             booking_date.add(posting_date);
                         }
                     }else {
-                        Toast.makeText(getApplicationContext(),"Failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"No Trips Available", Toast.LENGTH_LONG).show();
                     }
                     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                     recyclerView_mybooking.setLayoutManager(layoutManager);

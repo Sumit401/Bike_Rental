@@ -21,6 +21,9 @@
             android:layout_width="100sp"
             android:layout_height="100sp" />
     </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="vertical"
         android:layout_weight="3"
@@ -35,9 +38,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
+                android:inputType="textPersonName"
+                android:layout_marginBottom="5sp"
                 android:id="@+id/upd_name"
                 android:hint="Name"
-                android:drawablePadding="10sp"
+                android:drawablePadding="15sp"
                 android:drawableStart="@drawable/ic_person_black_24dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -46,15 +51,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
+                android:layout_marginBottom="5sp"
                 android:id="@+id/upd_email"
                 android:editable="false"
                 android:hint="Email"
-                android:drawablePadding="10sp"
+                android:drawablePadding="15sp"
                 android:drawableStart="@drawable/ic_mail_black_24dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </android.support.design.widget.TextInputLayout>
         <RadioGroup
+            android:id="@+id/radiogroup"
             android:padding="10sp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -75,13 +82,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </RadioGroup>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_marginBottom="5sp"
+                    android:id="@+id/dob"
+                    android:inputType="date"
+                    android:hint="Date of Birth"
+                    android:drawablePadding="15sp"
+                    android:drawableStart="@drawable/ic_cake_black_24dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/upd_mobile"
                 android:hint="Mobile Number"
-                android:drawablePadding="10sp"
+                android:drawablePadding="15sp"
+                android:inputType="number"
+                android:maxLength="10"
                 android:drawableStart="@drawable/ic_call_black_24dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -103,5 +125,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+        <Button
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:padding="20sp"
+            android:background="#70ad4d"
+            android:textColor="@color/white"
+            android:id="@+id/update_profile_btn"
+            android:textStyle="bold"
+            android:text="Update"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>
