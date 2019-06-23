@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -48,8 +50,10 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity2 extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LocationListener {
 
@@ -59,6 +63,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
     LocationManager locationManager;
     String url="https://gogoogol.in/android/get_status.php";
     String url2="https://gogoogol.in/android/sendloc.php";
+    String url3="https://gogoogol.in/android/update_loc.php";
     String email,id;
     double lat=0,lng=0;
     int k=0;
@@ -263,6 +268,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
 
         lat=location.getLatitude();
         lng=location.getLongitude();
+
         latLng=new LatLng(lat,lng);
         if (k==1){
             JSONObject object = new JSONObject();
@@ -275,6 +281,29 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+        Geocoder geocoder;
+        List<Address> addresses;
+        geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            addresses = geocoder.getFromLocation(lat, lng, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            String city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            //Toast.makeText(getApplicationContext(),""+address+" "+city+" "+state+" "+country,Toast.LENGTH_SHORT).show();
+            JSONObject object1= new JSONObject();
+            SharedPreferences preferences=getSharedPreferences("Login",MODE_PRIVATE);
+            object1.put("id",preferences.getString("id",null));
+            object1.put("address",address);
+            object1.put("city",city+", "+state);
+            object1.put("country",country);
+            Set_location setLocation=new Set_location();
+            setLocation.execute(object1.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
@@ -412,6 +441,14 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
             }
             // other 'case' lines to check for other
             // permissions this app might request
+        }
+    }
+
+    private class Set_location extends AsyncTask<String,String,String>{
+        @Override
+        protected String doInBackground(String... params) {
+            JSONObject object=JsonFunction.GettingData(url3,params[0]);
+            return object.toString();
         }
     }
 }
