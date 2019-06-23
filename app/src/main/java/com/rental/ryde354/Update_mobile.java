@@ -31,7 +31,6 @@ public class Update_mobile extends AppCompatActivity {
         id=intent.getStringExtra("id");
         mobile=findViewById(R.id.mobile_number);
         button=findViewById(R.id.send_mobile);
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +63,7 @@ public class Update_mobile extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             JSONObject object=JsonFunction.GettingData(url,params[0]);
-            if (object== null)
+            if (object == null)
                 return "Null";
             else
                 return object.toString();
@@ -74,14 +73,23 @@ public class Update_mobile extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             dialog.dismiss();
+            try {
+                JSONObject object=new JSONObject(s);
+
             SharedPreferences preferences=getSharedPreferences("Login",MODE_PRIVATE);
             SharedPreferences.Editor editor=preferences.edit();
             editor.putString("id",id);
-            editor.putString("Mobile",mobile.getText().toString().trim());
+            editor.putString("Mobile",object.getString("mobile"));
+            editor.putString("dob",object.getString("dob"));
+            editor.putString("gender",object.getString("gender"));
             editor.apply();
+
             Intent intent=new Intent(Update_mobile.this,MainActivity2.class);
             startActivity(intent);
             finish();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
