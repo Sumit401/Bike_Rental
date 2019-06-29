@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+
+<ScrollView android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent">
+
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/booked_vehicle"
+    android:visibility="gone"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
 
     <TextView
         android:padding="10sp"
@@ -34,6 +42,28 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/txnidlayout"
+            android:padding="5sp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:text="Transaction ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:id="@+id/txn_id"
+                android:text="TXNID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -73,6 +103,7 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -90,24 +121,85 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-        <!--<LinearLayout
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:layout_weight="1"
-                android:text="Price"
+                android:text="Transaction Status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
                 android:gravity="center"
                 android:layout_weight="1"
-                android:id="@+id/total_price"
-                android:text="Price"
+                android:id="@+id/txn_status"
+                android:text="TXNSTATUS"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-        </LinearLayout>-->
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/txnamountlayout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:text="Transaction Amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:id="@+id/txn_amt"
+                android:text="TXNAMT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/txnmodelayout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:text="Payment Mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:id="@+id/payment_mode"
+                android:text="Payment Mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/banktxnidlayout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:text="Bank Transaction ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:id="@+id/bankid"
+                android:text="Bank ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
     <ImageView
         android:layout_gravity="center_horizontal"
@@ -118,3 +210,4 @@
         android:layout_height="wrap_content"
         tools:ignore="ContentDescription" />
 </LinearLayout>
+</ScrollView>

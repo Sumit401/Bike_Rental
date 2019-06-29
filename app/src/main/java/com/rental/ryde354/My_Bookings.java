@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -20,6 +22,7 @@ import java.util.Objects;
 
 public class My_Bookings extends AppCompatActivity {
     RecyclerView recyclerView_mybooking;
+    TextView notrips;
     LinearLayoutManager layoutManager;
     ArrayList<String> vehicleid=new ArrayList<>();
     ArrayList<String> vehicletitle=new ArrayList<>();
@@ -30,6 +33,7 @@ public class My_Bookings extends AppCompatActivity {
     ArrayList<String> book_message=new ArrayList<>();
     ArrayList<String> vimage=new ArrayList<>();
     ArrayList<String> booking_date=new ArrayList<>();
+    ArrayList<String> amount =new ArrayList<>();
     String url="https://gogoogol.in/android/mybookings.php";
 
     @Override
@@ -39,6 +43,7 @@ public class My_Bookings extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         layoutManager = new LinearLayoutManager(My_Bookings.this);
         recyclerView_mybooking=findViewById(R.id.recyclermybooking);
+        notrips=findViewById(R.id.notrips);
         SharedPreferences preferences=this.getSharedPreferences("Login", Context.MODE_PRIVATE);
         try {
             JSONObject object=new JSONObject();
@@ -79,7 +84,7 @@ public class My_Bookings extends AppCompatActivity {
                         JSONArray jsonArray = object.getJSONArray("vehicleinfo");
                         for (int i =0; i < jsonArray.length(); i++) {
                             JSONObject j2 = jsonArray.getJSONObject(i);
-                            String id=j2.getString("bookid");
+                            String id = j2.getString("id");
                             String title = j2.getString("VehiclesTitle");
                             String brand = j2.getString("BrandName");
                             String fromDate=j2.getString("FromDate");
@@ -88,6 +93,7 @@ public class My_Bookings extends AppCompatActivity {
                             String message=j2.getString("message");
                             String status = j2.getString("Status");
                             String posting_date=j2.getString("PostingDate");
+                            String pricing =j2.getString("price");
                             String img2="https://gogoogol.in/admin/img/vehicleimages/"+image;
                             vehicleid.add(id);
                             vehicletitle.add(title);
@@ -98,14 +104,15 @@ public class My_Bookings extends AppCompatActivity {
                             book_message.add(message);
                             vimage.add(img2);
                             booking_date.add(posting_date);
+                            amount.add(pricing);
                         }
                     }else {
-                        Toast.makeText(getApplicationContext(),"No Trips Available", Toast.LENGTH_LONG).show();
+                        notrips.setVisibility(View.VISIBLE);
                     }
                     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                     recyclerView_mybooking.setLayoutManager(layoutManager);
                     recyclerView_mybooking.setAdapter(new RecycleAdp_mybooking(My_Bookings.this,vehicleid,vehicletitle,vehiclebrand,
-                            todate_booking,fromDate_booking,booking_date,booking_status,book_message,vimage));
+                            todate_booking,fromDate_booking,booking_date,booking_status,book_message,vimage,amount));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

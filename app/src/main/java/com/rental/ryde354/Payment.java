@@ -3,6 +3,7 @@ package com.rental.ryde354;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -49,8 +50,10 @@ public class Payment extends AppCompatActivity {
     PaytmPGService service;
     String checksum;
     ImageView image_vehicle;
+    ProgressDialog dialog;
     String url = "https://gogoogol.in/android/paytm/generateChecksum.php";
     String url2="https://gogoogol.in/android/booking.php";
+    String url3="https://gogoogol.in/android/transaction.php";
     public static final String MID = "mjMzoe42717843068462";
     public static final String INDUSTRY_TYPE = "Retail";
     public static final String CHANNEL_ID = "WAP";
@@ -67,6 +70,7 @@ public class Payment extends AppCompatActivity {
             ActivityCompat.requestPermissions(Payment.this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS}, 101);
         }
         service = PaytmPGService.getProductionService();
+        dialog=new ProgressDialog(Payment.this);
         preferences = getSharedPreferences("Login", MODE_PRIVATE);
         Intent intent = getIntent();
         price = Float.parseFloat(intent.getStringExtra("price"));
@@ -111,6 +115,10 @@ public class Payment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                dialog.setMessage("Loading");
+                dialog.setTitle("Please Wait");
+                dialog.setCancelable(false);
+                dialog.show();
                 SharedPreferences preferences = getSharedPreferences("Login", MODE_PRIVATE);
                 JSONObject obj1 = new JSONObject();
                 try {
@@ -158,7 +166,8 @@ public class Payment extends AppCompatActivity {
                     JSONObject object=new JSONObject(s);
                     String s1=object.getString("response");
                     if (s1.equalsIgnoreCase("Success")) {
-                        Toast.makeText(Payment.this,"Successfully Done",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Payment.this,"Successfully Done",Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
                         orderid=object.getString("id");
                         Map<String,String> params =new HashMap<>();
                             params.put("orderid", object.getString("id"));
@@ -194,38 +203,69 @@ public class Payment extends AppCompatActivity {
                                                 new PaytmPaymentTransactionCallback() {
                                                     @Override
                                                     public void someUIErrorOccurred(String inErrorMessage) {
+                                                        Toast.makeText(getApplicationContext(),"Some Error Occurred "+inErrorMessage,Toast.LENGTH_SHORT).show();
+                                                        finish();
                                                     }
 
                                                     @Override
                                                     public void onTransactionResponse(Bundle inResponse) {
                                                         Log.d("LOG", "Payment Transaction is successful " + inResponse);
-                                                        Toast.makeText(getApplicationContext(), "Payment Transaction response " + inResponse.toString(), Toast.LENGTH_LONG).show();
+                                                        //Toast.makeText(getApplicationContext(), "Payment Transaction response " + inResponse.toString(), Toast.LENGTH_LONG).show();
+
+                                                        JSONObject object1=new JSONObject();
+                                                        try {
+                                                            object1.put("ORDERID",inResponse.getString("ORDERID"));
+                                                            object1.put("MID",inResponse.getString("MID"));
+                                                            object1.put("TXNID",inResponse.getString("TXNID"));
+                                                            object1.put("TXNAMOUNT",inResponse.getString("TXNAMOUNT"));
+                                                            object1.put("PAYMENTMODE",inResponse.getString("PAYMENTMODE"));
+                                                            object1.put("CURRENCY",inResponse.getString("CURRENCY"));
+                                                            object1.put("TXNDATE",inResponse.getString("TXNDATE"));
+                                                            object1.put("STATUS",inResponse.getString("STATUS"));
+                                                            object1.put("RESPCODE",inResponse.getString("RESPCODE"));
+                                                            object1.put("RESPMSG",inResponse.getString("RESPMSG"));
+                                                            object1.put("GATEWAYNAME",inResponse.getString("GATEWAYNAME"));
+                                                            object1.put("BANKTXNID",inResponse.getString("BANKTXNID"));
+                                                            object1.put("CHECKSUMHASH",inResponse.getString("CHECKSUMHASH"));
+
+                                                            Send_Transaction_data transactionData = new Send_Transaction_data();
+                                                            transactionData.execute(object1.toString());
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
                                                     }
 
                                                     @Override
                                                     public void networkNotAvailable() {
                                                         // If network is not available, then this method gets called.
+                                                        Toast.makeText(getApplicationContext(),"No Network Available",Toast.LENGTH_SHORT).show();
+                                                        finish();
                                                     }
 
                                                     @Override
                                                     public void clientAuthenticationFailed(String inErrorMessage) {
+                                                        Toast.makeText(getApplicationContext(),"Client Authentication Failed "+inErrorMessage,Toast.LENGTH_SHORT).show();
+                                                        finish();
                                                     }
 
                                                     @Override
                                                     public void onErrorLoadingWebPage(int iniErrorCode, String inErrorMessage, String
                                                             inFailingUrl) {
                                                         Toast.makeText(getApplicationContext(), "" + inErrorMessage + "" + inFailingUrl, Toast.LENGTH_LONG).show();
+                                                        finish();
                                                     }
 
                                                     @Override
                                                     public void onBackPressedCancelTransaction() {
-                                                        Toast.makeText(Payment.this, "Back pressed. Transaction cancelled", Toast.LENGTH_LONG).show();
+                                                        Toast.makeText(getApplicationContext(), "Back pressed. Transaction cancelled", Toast.LENGTH_LONG).show();
+                                                        finish();
                                                     }
 
                                                     @Override
                                                     public void onTransactionCancel(String inErrorMessage, Bundle inResponse) {
                                                         Log.d("LOG", "Payment Transaction Failed " + inErrorMessage);
-                                                        Toast.makeText(getBaseContext(), "Payment Transaction Failed ", Toast.LENGTH_LONG).show();
+                                                        Toast.makeText(getApplicationContext(), "Payment Transaction Failed ", Toast.LENGTH_LONG).show();
+                                                        finish();
                                                     }
                                                 });
                                     }
@@ -244,6 +284,37 @@ public class Payment extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class Send_Transaction_data extends AsyncTask<String,String,String>{
+        @Override
+        protected String doInBackground(String... params) {
+            JSONObject object=JsonFunction.GettingData(url3,params[0]);
+            if (object==null)
+                return "NULL";
+            else
+                return object.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            try {
+                JSONObject object=new JSONObject(s);
+                String s1=object.getString("response");
+                if (s1.equalsIgnoreCase("success")){
+                    Intent intent=new Intent(Payment.this,Booked_Vehicle.class);
+                    intent.putExtra("order_id",orderid);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
     }

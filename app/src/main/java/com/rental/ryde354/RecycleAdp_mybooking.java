@@ -32,10 +32,11 @@ public class RecycleAdp_mybooking extends RecyclerView.Adapter<RecycleAdp_mybook
     private ArrayList<String> bookingstats;
     private ArrayList<String> veh_image;
     private ArrayList<String> msg;
+    private ArrayList<String> amount1;
 
     RecycleAdp_mybooking(Context context1, ArrayList<String> vehicleid, ArrayList<String> vehicletitle, ArrayList<String> vehiclebrand,
                          ArrayList<String> todate_booking, ArrayList<String> fromDate_booking, ArrayList<String> booking_date,
-                         ArrayList<String> booking_status, ArrayList<String> book_message, ArrayList<String> vimage) {
+                         ArrayList<String> booking_status, ArrayList<String> book_message, ArrayList<String> vimage,ArrayList<String> amount) {
         context=context1;
         book_id=vehicleid;
         veh_title=vehicletitle;
@@ -46,6 +47,7 @@ public class RecycleAdp_mybooking extends RecyclerView.Adapter<RecycleAdp_mybook
         msg=book_message;
         veh_image=vimage;
         bookingdate=booking_date;
+        amount1=amount;
     }
 
     @NonNull
@@ -62,6 +64,7 @@ public class RecycleAdp_mybooking extends RecyclerView.Adapter<RecycleAdp_mybook
         myViewHolder.brand.setText(veh_title.get(i)+", "+veh_brand.get(i));
         myViewHolder.fromdate.setText(fromdate.get(i));
         myViewHolder.todate.setText(todate.get(i));
+        myViewHolder.pricing.setText(amount1.get(i));
         myViewHolder.bookingdate.setText(bookingdate.get(i));
         if (bookingstats.get(i).equalsIgnoreCase("1")){
             myViewHolder.veh_status.setText("Active");
@@ -76,7 +79,7 @@ public class RecycleAdp_mybooking extends RecyclerView.Adapter<RecycleAdp_mybook
             @Override
             public void onClick(final View v) {
                 Intent intent = new Intent(context, Booked_Vehicle.class);
-                intent.putExtra("book_id",""+ book_id.get(i));
+                intent.putExtra("order_id",""+ book_id.get(i));
                 context.startActivity(intent);
             }
         });
