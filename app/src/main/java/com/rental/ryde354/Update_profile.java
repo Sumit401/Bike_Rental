@@ -6,10 +6,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +26,6 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -120,7 +117,7 @@ public class Update_profile extends AppCompatActivity {
                     }
                     try {
                         JSONObject object=new JSONObject();
-                        object.put("id",preferences.getString("id",null));
+                        object.put("id",preferences.getString("custom_id",null));
                         object.put("name",name.getText().toString().trim());
                         object.put("mobile",mobile.getText().toString().trim());
                         object.put("gender",gender);

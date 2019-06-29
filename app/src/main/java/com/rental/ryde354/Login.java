@@ -91,7 +91,7 @@ public class Login extends AppCompatActivity {
 
                     SharedPreferences preferences=getSharedPreferences("Login",MODE_PRIVATE);
                     SharedPreferences.Editor editor=preferences.edit();
-                    editor.putString("id",object.getString("id"));
+                    editor.putString("custom_id",object.getString("id"));
                     editor.putString("Name", object.getString("name"));
                     editor.putString("Email",object.getString("email"));
                     editor.putString("Mobile",object.getString("mobile"));

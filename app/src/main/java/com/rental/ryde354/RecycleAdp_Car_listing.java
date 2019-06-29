@@ -66,7 +66,7 @@ public class RecycleAdp_Car_listing extends RecyclerView.Adapter<RecycleAdp_Car_
             @Override
             public void onClick(final View v) {
                 Intent intent=new Intent(context, MainActivity3.class);
-                intent.putExtra("id",""+veh_id.get(i));
+                intent.putExtra("veh_id",""+veh_id.get(i));
                 context.startActivity(intent);
             }
         });

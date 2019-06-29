@@ -29,7 +29,7 @@ public class Update_mobile extends AppCompatActivity {
         setContentView(R.layout.update_mobile);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Intent intent=getIntent();
-        id=intent.getStringExtra("id");
+        id=intent.getStringExtra("custom_id");
         mobile=findViewById(R.id.mobile_number);
         button=findViewById(R.id.send_mobile);
         button.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +79,7 @@ public class Update_mobile extends AppCompatActivity {
 
             SharedPreferences preferences=getSharedPreferences("Login",MODE_PRIVATE);
             SharedPreferences.Editor editor=preferences.edit();
-            editor.putString("id",id);
+            editor.putString("custom_id",id);
             editor.putString("Mobile",object.getString("mobile"));
             editor.putString("dob",object.getString("dob"));
             editor.putString("gender",object.getString("gender"));

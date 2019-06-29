@@ -460,6 +460,7 @@
             android:textSize="17sp"
             android:textAllCaps="false"
             android:padding="20sp"
+            android:textStyle="bold"
             android:id="@+id/sharevehicle"
             android:drawableStart="@drawable/ic_menu_share"
             android:text="Share"
@@ -480,9 +481,7 @@
             android:drawableStart="@drawable/ic_local_offer_black_24dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:targetApi="m" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
-
 
 </android.support.constraint.ConstraintLayout>

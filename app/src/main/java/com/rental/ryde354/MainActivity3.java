@@ -1,26 +1,23 @@
 package com.rental.ryde354;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -41,14 +38,14 @@ import java.util.Objects;
 
 public class MainActivity3 extends AppCompatActivity {
     String url="https://gogoogol.in/android/getid.php";
-    String url2="https://gogoogol.in/android/booking.php";
     String s1;
     ImageView imageView1,imageView2,imageView3,imageView4,imageView5;
     TextView name,price,seat,fuel,reg_year;
     String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     ImageView air_cond,antilockbr,powersteering,powerwindow,power_door_lock,centrallock,cdplayer,leatherseat,crashsensor,driverairbag,passairbag,break_assist;
-    String cust_id,brand,overview,fuelType,pricing,ac,modelyr,title,seating,powerdoorlock,abs,breakass, PowerSteering,DriverAirbag,
+    String veh_id,brand,overview,fuelType,pricing,ac,modelyr,title,seating,powerdoorlock,abs,breakass, PowerSteering,DriverAirbag,
             PassengerAirbag,PowerWindows,CDPlayer,CrashSensor,CentralLocking,LeatherSeats;
+    String image1,image2,image3,image4,image5;
     Button accessories,over_view;
     Button share,booknow;
     TextView contents_data;
@@ -100,7 +97,7 @@ public class MainActivity3 extends AppCompatActivity {
         booknow = findViewById(R.id.bookvehicle);
         share = findViewById(R.id.sharevehicle);
         final Intent intent = getIntent();
-        s1 = intent.getStringExtra("id");
+        s1 = intent.getStringExtra("veh_id");
 
         from_date_time = Calendar.getInstance();
         to_date_time =  Calendar.getInstance();
@@ -120,12 +117,14 @@ public class MainActivity3 extends AppCompatActivity {
                 dialog.setContentView(R.layout.booknow);
                 dialog.show();
                 Window window=dialog.getWindow();
-                window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                Objects.requireNonNull(window).setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 final EditText fromdate = dialog.findViewById(R.id.fromdate);
                 final EditText fromtime = dialog.findViewById(R.id.fromtime);
                 final EditText todate = dialog.findViewById(R.id.todate);
                 final EditText totime = dialog.findViewById(R.id.totime);
                 final EditText message = dialog.findViewById(R.id.messagedata);
+                final CheckBox terms_cond = dialog.findViewById(R.id.terms_cond);
+                final CheckBox doorstep_delivery = dialog.findViewById(R.id.doorstep_delivery);
                 Button submit_form = dialog.findViewById(R.id.submit_form);
 
                 fromdate.setOnClickListener(new View.OnClickListener() {
@@ -135,16 +134,14 @@ public class MainActivity3 extends AppCompatActivity {
                         int mday = calendar.get(Calendar.DATE);
                         int mmonth = calendar.get(Calendar.MONTH);
                         int myear = calendar.get(Calendar.YEAR);
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity3.this,
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity3.this,R.style.DialogTheme,
                                 new DatePickerDialog.OnDateSetListener() {
                             @SuppressLint("DefaultLocale")
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
                                 from_date_dd=dayOfMonth;
                                 from_date_mm=month;
                                 from_date_yy=year;
-
                                 fromdate.setText(String.format("%02d %s %d", dayOfMonth, MONTHS[month], year));
                             }
                         }, myear, mmonth, mday);
@@ -160,7 +157,7 @@ public class MainActivity3 extends AppCompatActivity {
                         int mhour = calendar.get(Calendar.HOUR);
                         int mmin = calendar.get(Calendar.MINUTE);
 
-                        TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity3.this,
+                        TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity3.this,R.style.DialogTheme,
                                 new TimePickerDialog.OnTimeSetListener() {
                                     @SuppressLint("DefaultLocale")
                                     @Override
@@ -196,7 +193,7 @@ public class MainActivity3 extends AppCompatActivity {
                         int mmonth = calendar.get(Calendar.MONTH) + 1;
                         int myear = calendar.get(Calendar.YEAR);
 
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity3.this,
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity3.this,R.style.DialogTheme,
                                 new DatePickerDialog.OnDateSetListener() {
                                     @SuppressLint("DefaultLocale")
                                     @Override
@@ -222,7 +219,7 @@ public class MainActivity3 extends AppCompatActivity {
                         int mhour = calendar.get(Calendar.HOUR);
                         int mmin = calendar.get(Calendar.MINUTE);
 
-                        TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity3.this,
+                        TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity3.this,R.style.DialogTheme,
                                 new TimePickerDialog.OnTimeSetListener() {
                                     @Override
                                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -255,28 +252,31 @@ public class MainActivity3 extends AppCompatActivity {
                         if (todate.getText().toString().trim().isEmpty() || totime.getText().toString().trim().isEmpty() || fromdate.getText().toString().trim().isEmpty() || fromtime.getText().toString().trim().isEmpty() ) {
                             Toast.makeText(MainActivity3.this, "Fields Can't be Empty", Toast.LENGTH_SHORT).show();
                         } else {
+                            if (terms_cond.isChecked()){
                             from_date_time.set(from_date_yy, from_date_mm, from_date_dd);
                             to_date_time.set(to_date_yy, to_date_mm, to_date_dd);
                             long diff = -from_date_time.getTimeInMillis() + to_date_time.getTimeInMillis();
-
                             dayCount = (float) diff / (24 * 60 * 60 * 1000);
-
+                            boolean doorstepDeliveryChecked=doorstep_delivery.isChecked();
                             if (dayCount > 0) {
-                                SharedPreferences preferences = getSharedPreferences("Login", MODE_PRIVATE);
-                                JSONObject obj1 = new JSONObject();
-                                try {
-                                    obj1.put("email", preferences.getString("Email", null));
-                                    obj1.put("vehicleid", s1);
-                                    obj1.put("fromdate", fromdate.getText().toString().trim() + " - " + fromtime.getText().toString().trim());
-                                    obj1.put("todate", todate.getText().toString().trim() + " - " + totime.getText().toString().trim());
-                                    obj1.put("message", message.getText().toString().trim());
-                                    SubmitData submitData = new SubmitData();
-                                    submitData.execute(obj1.toString());
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+
+                                Intent intent1 = new Intent(MainActivity3.this, Payment.class);
+                                intent1.putExtra("price", "" + pricing);
+                                intent1.putExtra("days", "" + dayCount);
+                                intent1.putExtra("veh_id", "" + veh_id);
+                                intent1.putExtra("veh_name", "" + title + "," + brand);
+                                intent1.putExtra("from", fromdate.getText().toString().trim() + " - " + fromtime.getText().toString().trim());
+                                intent1.putExtra("to", todate.getText().toString().trim() + " - " + totime.getText().toString().trim());
+                                intent1.putExtra("message", message.getText().toString().trim());
+                                intent1.putExtra("image_vehicle", image1);
+                                intent1.putExtra("delivery",""+doorstepDeliveryChecked);
+                                startActivity(intent1);
+                                finish();
                             }else {
                                 Toast.makeText(getApplicationContext(),"Invalid date",Toast.LENGTH_SHORT).show();
+                            }
+                            }else {
+                                Toast.makeText(getApplicationContext(),"Accept Terms and Conditions to Proceed",Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -320,7 +320,7 @@ public class MainActivity3 extends AppCompatActivity {
                         JSONArray jsonArray = j1.getJSONArray("vehicleinfo");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject j2 = jsonArray.getJSONObject(i);
-                            cust_id = j2.getString("id");
+                            veh_id = j2.getString("id");
                             title = j2.getString("VehiclesTitle");
                             brand = j2.getString("BrandName");
                             overview = j2.getString("VehiclesOverview");
@@ -340,11 +340,17 @@ public class MainActivity3 extends AppCompatActivity {
                             CentralLocking=j2.getString("CentralLocking");
                             CrashSensor=j2.getString("CrashSensor");
                             LeatherSeats=j2.getString("LeatherSeats");
-                            Picasso.get().load("https://gogoogol.in/admin/img/vehicleimages/"+j2.getString("Vimage4")).resize(750,390).into(imageView4);
-                            Picasso.get().load("https://gogoogol.in/admin/img/vehicleimages/"+j2.getString("Vimage5")).resize(750,390).into(imageView5);
-                            Picasso.get().load("https://gogoogol.in/admin/img/vehicleimages/"+j2.getString("Vimage1")).resize(750,390).into(imageView1);
-                            Picasso.get().load("https://gogoogol.in/admin/img/vehicleimages/"+j2.getString("Vimage2")).resize(750,390).into(imageView2);
-                            Picasso.get().load("https://gogoogol.in/admin/img/vehicleimages/"+j2.getString("Vimage3")).resize(750,390).into(imageView3);
+                            image1="https://gogoogol.in/admin/img/vehicleimages/"+j2.getString("Vimage1");
+                            image2="https://gogoogol.in/admin/img/vehicleimages/"+j2.getString("Vimage2");
+                            image3="https://gogoogol.in/admin/img/vehicleimages/"+j2.getString("Vimage3");
+                            image4="https://gogoogol.in/admin/img/vehicleimages/"+j2.getString("Vimage4");
+                            image5="https://gogoogol.in/admin/img/vehicleimages/"+j2.getString("Vimage5");
+
+                            Picasso.get().load(image1).resize(750,390).into(imageView1);
+                            Picasso.get().load(image2).resize(750,390).into(imageView2);
+                            Picasso.get().load(image3).resize(750,390).into(imageView3);
+                            Picasso.get().load(image4).resize(750,390).into(imageView4);
+                            Picasso.get().load(image5).resize(750,390).into(imageView5);
                         }
                         name.setText(title+", "+brand);
                         price.setText("INR "+pricing+" Per Day");
@@ -440,49 +446,5 @@ public class MainActivity3 extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private class SubmitData extends AsyncTask<String,String,String>{
 
-        @Override
-        protected String doInBackground(String... params) {
-            JSONObject object=JsonFunction.GettingData(url2,params[0]);
-            if (object ==null)
-            return "NULL";
-            else
-                return object.toString();
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            if (s.equalsIgnoreCase("NULL")){
-                Snackbar.make(getWindow().getDecorView().getRootView(),"No Internet",Snackbar.LENGTH_SHORT);
-            }else{
-                try {
-                    JSONObject object=new JSONObject(s);
-                    String s1=object.getString("response");
-                    if (s1.equalsIgnoreCase("Success")) {
-                        Toast.makeText(MainActivity3.this,"Successfully Done",Toast.LENGTH_SHORT).show();
-                        s2=object.getString("id");
-
-                        Intent intent1=new Intent(MainActivity3.this,Payment.class);
-                        intent1.putExtra("book_id",""+s2);
-                        intent1.putExtra("price",""+pricing);
-                        intent1.putExtra("days",""+dayCount);
-                        intent1.putExtra("cust_id",""+cust_id);
-                        intent1.putExtra("veh_name",""+title+","+brand);
-                        intent1.putExtra("from",from_date_dd+"-"+from_date_mm+"-"+from_date_yy);
-                        intent1.putExtra("to",to_date_dd+"-"+to_date_mm+"-"+to_date_yy);
-                        startActivity(intent1);
-                        finish();
-
-                    } else {
-                        Toast.makeText(MainActivity3.this,"Failed",Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 }

@@ -113,6 +113,8 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
 
         SharedPreferences preferences=getApplicationContext().getSharedPreferences("Login",MODE_PRIVATE);
         email=preferences.getString("Email",null);
+        // the below function is to send lat-lng position continuously to database if status of the particular booking is 1.
+        // the function is called every 500ms to check if the status is 1 or not.
         final Handler handler=new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -227,7 +229,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
 
 
         }else if (id == R.id.shareloc){
-            if (latLng !=null) {
+            if (lat != 0 && lng != 0) {
                 try {
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("text/plain");
@@ -240,6 +242,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                 }
             }else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+
             }
         }else if (id == R.id.share){
 
@@ -294,7 +297,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
             //Toast.makeText(getApplicationContext(),""+address+" "+city+" "+state+" "+country,Toast.LENGTH_SHORT).show();
             JSONObject object1= new JSONObject();
             SharedPreferences preferences=getSharedPreferences("Login",MODE_PRIVATE);
-            object1.put("id",preferences.getString("id",null));
+            object1.put("id",preferences.getString("custom_id",null));
             object1.put("address",address);
             object1.put("city",city+", "+state);
             object1.put("country",country);

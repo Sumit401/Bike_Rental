@@ -181,20 +181,20 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
 
                     SharedPreferences preferences=getSharedPreferences("Login",MODE_PRIVATE);
                     SharedPreferences.Editor editor=preferences.edit();
-                    editor.putString("id",object.getString("id"));
+                    editor.putString("custom_id",object.getString("id"));
                     editor.putString("Name",object.getString("name"));
                     editor.putString("Email",object.getString("email"));
                     editor.apply();
 
                     Intent intent=new Intent(MainActivity1.this,Update_mobile.class);
-                    intent.putExtra("id",""+object.getString("id"));
+                    intent.putExtra("custom_id",""+object.getString("id"));
                     startActivity(intent);
                     finish();
 
                 }else if (s1.equalsIgnoreCase("failed")){
                     SharedPreferences preferences=getSharedPreferences("Login",MODE_PRIVATE);
                     SharedPreferences.Editor editor=preferences.edit();
-                    editor.putString("id",object.getString("id"));
+                    editor.putString("custom_id",object.getString("id"));
                     editor.putString("Name",object.getString("name"));
                     editor.putString("Email",object.getString("email"));
                     editor.putString("Mobile",object.getString("mobile"));
@@ -300,7 +300,7 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
                 if (s1.equalsIgnoreCase("Success")){
                     SharedPreferences preferences=getSharedPreferences("Login",MODE_PRIVATE);
                     SharedPreferences.Editor editor=preferences.edit();
-                    editor.putString("id",object.getString("id"));
+                    editor.putString("custom_id",object.getString("id"));
                     editor.putString("Name",object.getString("name"));
                     editor.putString("Email",object.getString("email"));
                     editor.putString("Mobile",object.getString("mobile"));
