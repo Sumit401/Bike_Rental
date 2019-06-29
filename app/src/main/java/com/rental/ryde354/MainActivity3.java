@@ -135,7 +135,8 @@ public class MainActivity3 extends AppCompatActivity {
                         int mday = calendar.get(Calendar.DATE);
                         int mmonth = calendar.get(Calendar.MONTH);
                         int myear = calendar.get(Calendar.YEAR);
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity3.this, new DatePickerDialog.OnDateSetListener() {
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity3.this,
+                                new DatePickerDialog.OnDateSetListener() {
                             @SuppressLint("DefaultLocale")
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -161,9 +162,9 @@ public class MainActivity3 extends AppCompatActivity {
 
                         TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity3.this,
                                 new TimePickerDialog.OnTimeSetListener() {
+                                    @SuppressLint("DefaultLocale")
                                     @Override
                                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
                                         from_time_hh=hourOfDay;
                                         from_time_mm=minute;
 
@@ -197,6 +198,7 @@ public class MainActivity3 extends AppCompatActivity {
 
                         DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity3.this,
                                 new DatePickerDialog.OnDateSetListener() {
+                                    @SuppressLint("DefaultLocale")
                                     @Override
                                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
@@ -253,10 +255,8 @@ public class MainActivity3 extends AppCompatActivity {
                         if (todate.getText().toString().trim().isEmpty() || totime.getText().toString().trim().isEmpty() || fromdate.getText().toString().trim().isEmpty() || fromtime.getText().toString().trim().isEmpty() ) {
                             Toast.makeText(MainActivity3.this, "Fields Can't be Empty", Toast.LENGTH_SHORT).show();
                         } else {
-
                             from_date_time.set(from_date_yy, from_date_mm, from_date_dd);
                             to_date_time.set(to_date_yy, to_date_mm, to_date_dd);
-
                             long diff = -from_date_time.getTimeInMillis() + to_date_time.getTimeInMillis();
 
                             dayCount = (float) diff / (24 * 60 * 60 * 1000);
@@ -272,7 +272,6 @@ public class MainActivity3 extends AppCompatActivity {
                                     obj1.put("message", message.getText().toString().trim());
                                     SubmitData submitData = new SubmitData();
                                     submitData.execute(obj1.toString());
-
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -286,8 +285,6 @@ public class MainActivity3 extends AppCompatActivity {
         });
     }
 
-
-
     @SuppressLint("StaticFieldLeak")
     private class Get_data extends AsyncTask<String,String,String> {
 
@@ -297,7 +294,6 @@ public class MainActivity3 extends AppCompatActivity {
             mainlayout.setVisibility(View.GONE);
             layoutbooknow.setVisibility(View.GONE);
             bar.setVisibility(View.VISIBLE);
-
         }
 
         @Override
@@ -469,8 +465,7 @@ public class MainActivity3 extends AppCompatActivity {
                         Toast.makeText(MainActivity3.this,"Successfully Done",Toast.LENGTH_SHORT).show();
                         s2=object.getString("id");
 
-
-                        Intent intent1=new Intent(MainActivity3.this,Booked_Vehicle.class);
+                        Intent intent1=new Intent(MainActivity3.this,Payment.class);
                         intent1.putExtra("book_id",""+s2);
                         intent1.putExtra("price",""+pricing);
                         intent1.putExtra("days",""+dayCount);
