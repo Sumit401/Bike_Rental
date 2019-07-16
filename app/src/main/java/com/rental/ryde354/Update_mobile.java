@@ -83,6 +83,7 @@ public class Update_mobile extends AppCompatActivity {
             editor.putString("Mobile",object.getString("mobile"));
             editor.putString("dob",object.getString("dob"));
             editor.putString("gender",object.getString("gender"));
+            editor.putString("address",object.getString("address"));
             editor.apply();
 
             Intent intent=new Intent(Update_mobile.this,MainActivity2.class);

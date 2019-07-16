@@ -190,7 +190,7 @@ public class MainActivity3 extends AppCompatActivity {
                     public void onClick(View v) {
                         Calendar calendar = Calendar.getInstance();
                         int mday = calendar.get(Calendar.DATE);
-                        int mmonth = calendar.get(Calendar.MONTH) + 1;
+                        int mmonth = calendar.get(Calendar.MONTH);
                         int myear = calendar.get(Calendar.YEAR);
 
                         DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity3.this,R.style.DialogTheme,
@@ -205,9 +205,8 @@ public class MainActivity3 extends AppCompatActivity {
                                         todate.setText(String.format("%02d %s %d", dayOfMonth, MONTHS[month], year));
                                     }
                                 }, myear, mmonth, mday);
-
-
-                        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis() - 1000);
+                        from_date_time.set(from_date_yy, from_date_mm, from_date_dd);
+                        datePickerDialog.getDatePicker().setMinDate(from_date_time.getTimeInMillis() + (24 * 60 * 60 * 1000));
                         datePickerDialog.show();
                     }
                 });

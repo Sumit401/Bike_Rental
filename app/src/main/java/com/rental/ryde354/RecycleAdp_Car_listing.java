@@ -42,7 +42,6 @@ public class RecycleAdp_Car_listing extends RecyclerView.Adapter<RecycleAdp_Car_
         veh_pricing=vehiclepricing;
         veh_fuel=vehiclefuel;
         veh_image=vimage;
-
     }
 
     @NonNull
@@ -62,10 +61,11 @@ public class RecycleAdp_Car_listing extends RecyclerView.Adapter<RecycleAdp_Car_
         myViewHolder.model.setText(veh_model.get(i)+" Model");
         myViewHolder.fuel.setText(veh_fuel.get(i)+" Vehicle");
         myViewHolder.pricing.setText("INR "+veh_pricing.get(i)+" Per Day");
+
         myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                Intent intent=new Intent(context, MainActivity3.class);
+                Intent intent = new Intent(context, MainActivity3.class);
                 intent.putExtra("veh_id",""+veh_id.get(i));
                 context.startActivity(intent);
             }

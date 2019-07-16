@@ -27,7 +27,6 @@ public class Splash extends AppCompatActivity {
                 SharedPreferences preferences=getSharedPreferences("Login",MODE_PRIVATE);
                 if(preferences.getString("ID",null)==null && preferences.getString("Name",null)==null
                         && preferences.getString("Email",null)==null && preferences.getString("Mobile",null)==null){
-
                     Intent intent=new Intent(Splash.this,MainActivity1.class);
                     startActivity(intent);
                     finish();

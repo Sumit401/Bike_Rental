@@ -2,17 +2,19 @@ package com.rental.ryde354;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -24,6 +26,7 @@ import java.util.Objects;
 
 public class Car_listing extends Fragment {
     String url="https://gogoogol.in/android/vehicle_listing.php";
+    SharedPreferences preferences;
     RecyclerView recyclerView;
     ArrayList<String> vehicleid=new ArrayList<>();
     ArrayList<String> vehicletitle=new ArrayList<>();
@@ -40,10 +43,12 @@ public class Car_listing extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.vehicle_listing,container,false);
 
+        preferences= Objects.requireNonNull(getContext()).getSharedPreferences("Login", Context.MODE_PRIVATE);
         recyclerView=view.findViewById(R.id.recycler);
         JSONObject jsonObject=new JSONObject();
         try {
             jsonObject.put("type","car");
+            jsonObject.put("city",preferences.getString("city",null));
             jsonObject.put("action","get_all_links");
             LoadData loadData=new LoadData();
             loadData.execute(jsonObject.toString());
@@ -81,6 +86,15 @@ public class Car_listing extends Fragment {
                 Toast.makeText(getContext(),"No Internet",Toast.LENGTH_SHORT).show();
             }else {
                 try {
+                    vehicleid.clear();
+                    vehicletitle.clear();
+                    vehiclebrand.clear();
+                    vehicleoverview.clear();
+                    vehicleseating.clear();
+                    vehiclepricing.clear();
+                    vehiclemodelyear.clear();
+                    vehiclefuel.clear();
+                    vimage.clear();
                     JSONObject j1=new JSONObject(s);
                     String res=j1.getString("response");
                     if(res.equalsIgnoreCase("success")) {
@@ -107,13 +121,11 @@ public class Car_listing extends Fragment {
                             vehiclefuel.add(fuelType);
                             vimage.add(img2);
                         }
-
                         LinearLayoutManager layoutManager=new LinearLayoutManager(getContext(),
                                 LinearLayoutManager.VERTICAL,false);
                         recyclerView.setLayoutManager(layoutManager);
-                        recyclerView.setAdapter(new RecycleAdp_Car_listing(getContext(),vehicleid,vehicletitle,vehiclebrand,vehicleoverview,vehicleseating,vehiclepricing,vehiclemodelyear,vehiclefuel,vimage));
-                    }else {
-                        Snackbar.make(Objects.requireNonNull(getView()),"No Data",Snackbar.LENGTH_SHORT);
+                        recyclerView.setAdapter(new RecycleAdp_Car_listing(getContext(),vehicleid,vehicletitle,vehiclebrand,
+                                vehicleoverview,vehicleseating,vehiclepricing,vehiclemodelyear,vehiclefuel,vimage));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

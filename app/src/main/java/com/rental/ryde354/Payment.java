@@ -54,7 +54,7 @@ public class Payment extends AppCompatActivity {
     String url = "https://gogoogol.in/android/paytm/generateChecksum.php";
     String url2="https://gogoogol.in/android/booking.php";
     String url3="https://gogoogol.in/android/transaction.php";
-    public static final String MID = "mjMzoe42717843068462";
+    public static final String MID = "OvmBvc95844887436372";
     public static final String INDUSTRY_TYPE = "Retail";
     public static final String CHANNEL_ID = "WAP";
     public static final String WEBSITE = "DEFAULT";
@@ -100,7 +100,7 @@ public class Payment extends AppCompatActivity {
             doorstep_payment.setText("Yes");
             total_price.setText(""+getPrice+" + 300 (Delivery Charges)");
             getPrice=getPrice+300;
-        }else if (delivery.equalsIgnoreCase("false")){
+        } else if (delivery.equalsIgnoreCase("false")){
             doorstep_payment.setText("No");
             total_price.setText(""+getPrice);
         }
@@ -108,7 +108,6 @@ public class Payment extends AppCompatActivity {
         to.setText(to_date);
         name.setText(veh_name);
         price_per_day.setText(""+(int)price);
-
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         submit.setOnClickListener(new View.OnClickListener() {

@@ -32,7 +32,7 @@ import java.util.Objects;
 public class Update_profile extends AppCompatActivity {
 
     Button profile_verif,update_btn;
-    EditText name,email,mobile,dob;
+    EditText name,email,mobile,dob,address;
     ImageView profileimg;
     RadioGroup radioGroup;
     RadioButton male,female;
@@ -49,6 +49,7 @@ public class Update_profile extends AppCompatActivity {
         email=findViewById(R.id.upd_email);
         mobile=findViewById(R.id.upd_mobile);
         dob=findViewById(R.id.dob);
+        address=findViewById(R.id.address);
         profile_verif=findViewById(R.id.profile_verific);
         profileimg=findViewById(R.id.profileimage);
         male=findViewById(R.id.radio_male);
@@ -75,6 +76,13 @@ public class Update_profile extends AppCompatActivity {
             female.setChecked(true);
         else
             male.setChecked(true);
+
+        if (Objects.requireNonNull(preferences.getString("address", null)).equalsIgnoreCase("null")){
+            address.setText("");
+        }else {
+            address.setText(preferences.getString("address",null));
+        }
+
 
         dob.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +117,7 @@ public class Update_profile extends AppCompatActivity {
         update_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!name.getText().toString().isEmpty() && !mobile.getText().toString().isEmpty()){
+                if (!name.getText().toString().isEmpty() && !mobile.getText().toString().isEmpty() && !address.getText().toString().isEmpty()){
                     if (radioGroup.getCheckedRadioButtonId() == R.id.radio_male){
                         gender="m";
                     }else{
@@ -122,6 +130,7 @@ public class Update_profile extends AppCompatActivity {
                         object.put("mobile",mobile.getText().toString().trim());
                         object.put("gender",gender);
                         object.put("dob",dob.getText().toString().trim());
+                        object.put("address",address.getText().toString().trim());
                         Send_data sendData=new Send_data();
                         sendData.execute(object.toString());
                     } catch (JSONException e) {
@@ -159,6 +168,7 @@ public class Update_profile extends AppCompatActivity {
             SharedPreferences.Editor editor=preferences.edit();
             editor.putString("dob",dob.getText().toString().trim());
             editor.putString("gender",gender);
+            editor.putString("address",address.getText().toString());
             editor.apply();
         }
     }

@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -59,7 +60,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.rental.ryde354.Booked_Vehicle"
-            android:label="@string/app_name"
+            android:label="Booked Vehicle"
             android:parentActivityName="com.rental.ryde354.MainActivity2"
             android:screenOrientation="portrait" />
         <activity

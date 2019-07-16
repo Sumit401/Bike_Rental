@@ -111,6 +111,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/address"
+                    android:hint="Address"
+                    android:drawablePadding="15sp"
+                    android:inputType="textPostalAddress"
+                    android:drawableStart="@drawable/ic_location_on_black_24dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
         <LinearLayout
             android:background="#edf0f2"

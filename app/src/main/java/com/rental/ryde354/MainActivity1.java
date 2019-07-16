@@ -200,6 +200,7 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
                     editor.putString("Mobile",object.getString("mobile"));
                     editor.putString("dob",object.getString("dob"));
                     editor.putString("gender",object.getString("gender"));
+                    editor.putString("address",object.getString("address"));
                     editor.apply();
 
                     Intent intent=new Intent(MainActivity1.this,MainActivity2.class);
